@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ora Lo Sai Anche Tu — labancalosa.pro</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #1A3A5C;
+  --navy2: #0d2240;
+  --gold: #C8A96E;
+  --gold2: #a88a50;
+  --emerald: #00A86B;
+  --bg: #F4F7FA;
+  --white: #ffffff;
+  --text: #16202E;
+  --text2: #4A5568;
+  --text3: #8A99AD;
+  --border: rgba(26,58,92,0.12);
+  --shadow: 0 4px 24px rgba(26,58,92,0.10);
+  --shadow-lg: 0 8px 48px rgba(26,58,92,0.16);
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── LANDING ── */
+#landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-bar {
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 36px; height: 36px;
+  background: var(--navy);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.logo-icon span {
+  color: var(--gold);
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+}
+
+.logo-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: .02em;
+}
+
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px 40px;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(200,169,110,0.12);
+  border: 1px solid rgba(200,169,110,0.3);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold2);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1.1;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.hero h1 .accent {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: var(--text2);
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto 36px;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.hero-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text2);
+}
+
+.hero-meta-item strong {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.btn-start {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 100px;
+  padding: 16px 40px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: all .2s;
+  box-shadow: 0 4px 20px rgba(26,58,92,0.25);
+}
+
+.btn-start:hover {
+  background: var(--navy2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(26,58,92,0.30);
+}
+
+.modules-preview {
+  padding: 40px 24px 60px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.modules-preview h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  color: var(--navy);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.module-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.module-num {
+  width: 28px; height: 28px; min-width: 28px;
+  background: var(--navy);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  font-family: 'DM Mono', monospace;
+}
+
+.module-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.4;
+}
+
+/* ── ONBOARDING ── */
+#onboarding {
+  display: none;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.onb-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 40px;
+  max-width: 480px;
+  width: 100%;
+}
+
+.onb-step { display: none; }
+.onb-step.active { display: block; }
+
+.onb-icon {
+  width: 56px; height: 56px;
+  background: rgba(26,58,92,0.07);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.onb-card h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.onb-card p {
+  font-size: 15px;
+  color: var(--text2);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.onb-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 8px;
+}
+
+.onb-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s;
+  margin-bottom: 20px;
+}
+
+.onb-input:focus { border-color: var(--navy); }
+
+.onb-select {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  outline: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A5568' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+.onb-toggle-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.onb-toggle {
+  flex: 1;
+  padding: 14px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text2);
+  transition: all .2s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.onb-toggle.selected {
+  border-color: var(--navy);
+  background: rgba(26,58,92,0.05);
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.btn-onb {
+  width: 100%;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.btn-onb:hover { background: var(--navy2); }
+
+.onb-progress {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.onb-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background .2s;
+}
+
+.onb-dot.active { background: var(--navy); }
+
+/* ── CHAT ── */
+#corso {
+  display: none;
+  height: 100vh;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chat-header {
+  background: var(--navy);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.chat-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Serif Display', serif;
+  font-size: 16px;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.chat-header-info h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.chat-header-info p {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+}
+
+.chat-header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-pill {
+  background: rgba(255,255,255,0.12);
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.8);
+  font-weight: 500;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.msg {
+  display: flex;
+  gap: 10px;
+  max-width: 82%;
+}
+
+.msg.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.msg-avatar {
+  width: 32px; height: 32px; min-width: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.msg.marco .msg-avatar {
+  background: var(--navy);
+  color: var(--gold);
+  font-family: 'DM Serif Display', serif;
+}
+
+.msg.user .msg-avatar {
+  background: var(--emerald);
+  color: var(--white);
+}
+
+.msg-bubble {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px 16px 16px 4px;
+  padding: 14px 16px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(26,58,92,0.06);
+}
+
+.msg.user .msg-bubble {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 16px 16px 4px 16px;
+}
+
+.msg-bubble strong { font-weight: 700; }
+.msg-bubble em { font-style: italic; }
+
+.msg.marco .msg-bubble ul {
+  margin: 8px 0 4px 16px;
+}
+
+.msg.marco .msg-bubble li {
+  margin-bottom: 4px;
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 10px;
+  max-width: 82%;
+  align-self: flex-start;
+}
+
+.typing-dots {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px 16px 16px 4px;
+  padding: 16px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.typing-dots span {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--text3);
+  animation: bounce 1.2s infinite;
+}
+
+.typing-dots span:nth-child(2) { animation-delay: .2s; }
+.typing-dots span:nth-child(3) { animation-delay: .4s; }
+
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+}
+
+.chat-input-area {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: 14px 16px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.chat-textarea {
+  flex: 1;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-size: 14.5px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  resize: none;
+  outline: none;
+  min-height: 44px;
+  max-height: 130px;
+  transition: border-color .2s;
+  line-height: 1.5;
+}
+
+.chat-textarea:focus { border-color: var(--navy); }
+
+.btn-send {
+  width: 44px; height: 44px; min-width: 44px;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+  flex-shrink: 0;
+}
+
+.btn-send:hover { background: var(--navy2); }
+.btn-send:disabled { background: var(--text3); cursor: not-allowed; }
+
+.btn-send svg { width: 18px; height: 18px; }
+
+@media (max-width: 600px) {
+  .onb-card { padding: 28px 20px; }
+  .hero { padding: 40px 20px 28px; }
+  .modules-grid { grid-template-columns: 1fr 1fr; }
+  .top-bar { padding: 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ LANDING ══ -->
+<div id="landing">
+  <div class="top-bar">
+    <a class="logo-mark" href="#">
+      <div class="logo-icon"><span>L</span></div>
+      <span class="logo-name">labancalosa.pro</span>
+    </a>
+  </div>
+
+  <div class="hero">
+    <div class="eyebrow">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M6 4v2.5l1.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Corso interattivo per imprenditori
+    </div>
+
+    <h1>La Banca Lo Sa.<br><span class="accent">Ora Lo Sai Anche Tu.</span></h1>
+
+    <p class="hero-sub">
+      7 moduli per imparare a leggere i numeri del tuo bilancio — come li legge la banca.
+      Con Marco Ferretti, imprenditore che ha imparato a sue spese.
+    </p>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="3" width="14" height="11" rx="2" stroke="#4A5568" stroke-width="1.4"/>
+          <path d="M5 1v3M11 1v3M1 7h14" stroke="#4A5568" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <strong>7 moduli</strong> · 27 lezioni
+      </div>
+      <div class="hero-meta-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4L2.2 5.2l4-.6L8 1z" stroke="#4A5568" stroke-width="1.4" stroke-linejoin="round"/>
+        </svg>
+        <strong>35 esercizi</strong> interattivi
+      </div>
+      <div class="hero-meta-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="7" stroke="#4A5568" stroke-width="1.4"/>
+          <path d="M8 4.5v3.5l2 2" stroke="#4A5568" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <strong>Valutazione</strong> finale
+      </div>
+    </div>
+
+    <button class="btn-start" onclick="mostraOnboarding()">Inizia il corso →</button>
+  </div>
+
+  <div class="modules-preview">
+    <h2>Cosa imparerai</h2>
+    <div class="modules-grid">
+      <div class="module-card">
+        <div class="module-num">01</div>
+        <div class="module-title">Perché i numeri contano</div>
+      </div>
+      <div class="module-card">
+        <div class="module-num">02</div>
+        <div class="module-title">Lo Stato Patrimoniale</div>
+      </div>
+      <div class="module-card">
+        <div class="module-num">03</div>
+        <div class="module-title">Il Conto Economico</div>
+      </div>
+      <div class="module-card">
+        <div class="module-num">04</div>
+        <div class="module-title">Il prezzo che uccide in silenzio</div>
+      </div>
+      <div class="module-card">
+        <div class="module-num">05</div>
+        <div class="module-title">Gli indici che contano</div>
+      </div>
+      <div class="module-card">
+        <div class="module-num">06</div>
+        <div class="module-title">Parlare la lingua della banca</div>
+      </div>
+      <div class="module-card">
+        <div class="module-num">07</div>
+        <div class="module-title">Cosa fare adesso</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ONBOARDING ══ -->
+<div id="onboarding">
+  <div class="onb-card">
+    <div class="onb-progress">
+      <div class="onb-dot active" id="dot1"></div>
+      <div class="onb-dot" id="dot2"></div>
+      <div class="onb-dot" id="dot3"></div>
+    </div>
+
+    <!-- Step 1: Nome -->
+    <div class="onb-step active" id="step1">
+      <div class="onb-icon">👋</div>
+      <h2>Come ti chiami?</h2>
+      <p>Marco ti chiamerà per nome durante tutto il corso.</p>
+      <div class="onb-label">Il tuo nome</div>
+      <input class="onb-input" id="inp-nome" type="text" placeholder="Es. Luca" autocomplete="given-name"/>
+      <button class="btn-onb" onclick="step1Next()">Continua →</button>
+    </div>
+
+    <!-- Step 2: Settore -->
+    <div class="onb-step" id="step2">
+      <div class="onb-icon">🏭</div>
+      <h2>In che settore opera la tua azienda?</h2>
+      <p>Marco userà esempi e benchmark specifici per il tuo settore.</p>
+      <div class="onb-label">Settore</div>
+      <select class="onb-select" id="inp-settore">
+        <option value="">Seleziona il settore</option>
+        <option value="Manifattura">Manifattura / Produzione</option>
+        <option value="Commercio">Commercio (dettaglio / ingrosso)</option>
+        <option value="Servizi">Servizi alle imprese</option>
+        <option value="Costruzioni">Edilizia / Costruzioni</option>
+        <option value="Ristorazione">Ristorazione / Hospitality</option>
+        <option value="Artigianato">Artigianato</option>
+        <option value="Altro">Altro / Non specificato</option>
+      </select>
+      <button class="btn-onb" onclick="step2Next()">Continua →</button>
+    </div>
+
+    <!-- Step 3: Cruscotto PMI -->
+    <div class="onb-step" id="step3">
+      <div class="onb-icon">📊</div>
+      <h2>Hai Cruscotto PMI?</h2>
+      <p>Se hai un abbonamento attivo a Cruscotto PMI, Marco potrà usare i tuoi dati reali di bilancio per gli esercizi.</p>
+      <div class="onb-label">Il tuo abbonamento</div>
+      <div class="onb-toggle-group">
+        <button class="onb-toggle" id="tog-si" onclick="selezionaToggle('si')">Sì, ce l'ho</button>
+        <button class="onb-toggle" id="tog-no" onclick="selezionaToggle('no')">No, non ancora</button>
+      </div>
+      <button class="btn-onb" onclick="step3Next()">Inizia il corso →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CORSO / CHAT ══ -->
+<div id="corso">
+  <div class="chat-header">
+    <div class="chat-avatar">MF</div>
+    <div class="chat-header-info">
+      <h3>Marco Ferretti</h3>
+      <p>Formatore — Ora Lo Sai Anche Tu</p>
+    </div>
+    <div class="chat-header-right">
+      <div class="progress-pill" id="progress-label">Modulo 1 di 7</div>
+    </div>
+  </div>
+
+  <div class="chat-messages" id="chat-messages"></div>
+
+  <div class="chat-input-area">
+    <textarea
+      class="chat-textarea"
+      id="chat-input"
+      placeholder="Scrivi la tua risposta…"
+      rows="1"
+      onkeydown="handleKey(event)"
+      oninput="autoResize(this)"
+    ></textarea>
+    <button class="btn-send" id="btn-send" onclick="sendMessage()">
+      <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.5 9L2.5 2.5l3 6.5-3 6.5L15.5 9z" fill="white"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ──
+const WORKER_URL = 'https://cruscottoai.luicrescenzo.workers.dev'
+const MODEL = 'claude-sonnet-4-6'
+
+// Dati utente
+let utente = { nome: '', settore: '', hasCruscotto: null }
+let messages = []
+let isLoading = false
+
+// ── SYSTEM PROMPT ──
+const SYSTEM_PROMPT = `# SYSTEM PROMPT - MARCO FERRETTI FORMATORE
+Agente formatore interattivo per il corso "Ora Lo Sai Anche Tu"
+GestioneImpresa.pro - sezione Corsi
+
+## IDENTITA' E RUOLO
+
+Sei Marco Ferretti, imprenditore che ha chiuso la sua azienda il 24 febbraio 2022 per mancanza di consapevolezza finanziaria. Oggi sei un formatore che insegna agli imprenditori a leggere i numeri del proprio bilancio - non per diventare commercialisti, ma per non essere mai piu' la persona piu' disinformata nella stanza quando si parla della propria azienda.
+
+Conosci la materia dall'interno, non dai libri. Parli come un imprenditore che ha imparato a sue spese, non come un professore.
+
+## REGOLE COMPORTAMENTALI - INDEROGABILI
+
+1. Nessuna adulazione. Non dire mai "ottima risposta", "perfetto", "bravo". Se la risposta e' corretta, di' che e' corretta e spiega perche'. Se e' sbagliata, di' che e' sbagliata e spiega dove sta l'errore.
+
+2. Diretto e concreto. Usa esempi numerici reali. Evita il linguaggio accademico. Se un concetto si spiega con un numero, usa un numero.
+
+3. Aspetta sempre la risposta. Non anticipare mai la soluzione di un esercizio. Presenta l'esercizio, aspetta che risponda, poi correggi. Se chiede la soluzione prima di averci provato: "Prova prima tu. Anche sbagliare fa parte del corso."
+
+4. Non adulare i progressi. Se migliora: "Hai capito il concetto." Non "Stai facendo un lavoro straordinario."
+
+5. Tono caldo ma non sdolcinato. Diretto e umano. Non sei un motivatore da palco.
+
+6. Non uscire dal perimetro del corso senza avvertire. Se fa domande fuori corso: "E' un argomento interessante, ma non e' parte di questo corso. Torniamo a dove eravamo."
+
+7. Niente teorie senza numeri. Ogni concetto deve essere accompagnato da almeno un esempio numerico concreto.
+
+## STRUTTURA CORSO
+
+Corso: "Ora Lo Sai Anche Tu" - 7 moduli, 27 lezioni, 35 esercizi interattivi.
+
+Progressione: l'imprenditore deve completare almeno 3 esercizi su 5 per sbloccare il modulo successivo.
+
+Quando avvii la prima conversazione, presenta te stesso brevemente (2-3 frasi), spiega che il corso si chiama "Ora Lo Sai Anche Tu", chiedi se ha Cruscotto PMI (ti verra' detto dall'app), poi inizia il Modulo 1.
+
+## MODULO 1 - PERCHE' I NUMERI CONTANO
+
+Obiettivo: capisce perche' non basta "sentire" che l'azienda va bene.
+
+Introduzione: "Ho chiuso la mia azienda il 24 febbraio 2022. Non per colpa del mercato. Perche' non capivo i miei numeri. Li delegavo. Annuivo quando il commercialista parlava. Guardavo il saldo in banca e pensavo che fosse sufficiente. Non lo era."
+
+Concetti chiave:
+- Fatturato non e' cassa. Mai. Senza eccezioni.
+- La banca calcola il tuo rating ogni volta che chiedi credito. Tu probabilmente non lo conosci.
+- Il bilancio esiste, i dati ci sono. Il problema e' che nessuno li ha mai tradotti per chi decide.
+- Monitorare i numeri non richiede una laurea. Richiede metodo e costanza.
+
+Esercizi Modulo 1:
+1.1 - Fai 8 domande sui numeri dell'imprenditore (fatturato, giorni incasso clienti, conosce DSCR, D/E, Current Ratio, EBITDA, ha presentato bilancio con indici in banca, calcola punto di pareggio). Nessuna risposta giusta/sbagliata - costruisci la mappa delle lacune.
+1.2 - Chiedi: fatturato mese, incassi effettivi ricevuti, pagamenti effettuati. Calcola differenza economico vs cassa. Verde <10%, ambra 10-25%, rosso >25%.
+1.3 - Chiedi 5 dati: fatturato, debiti totali, utile netto, liquidita', settore. Genera profilo bancario con rating indicativo A-E e 2 punti forza + 2 critici.
+1.4 - Chiedi: ricavi totali, utile netto, debiti totali. Calcola margine netto % e rapporto debiti/ricavi. Confronta con benchmark settore.
+1.5 - Scenario: presenta dati Azienda A Anno 1 vs Anno 2. L'imprenditore identifica 3 numeri migliorati e spiega perche'. Punteggio 0-3.
+
+## MODULO 2 - LO STATO PATRIMONIALE
+
+Concetti: attivo (immobilizzazioni + circolante), passivo (patrimonio netto + debiti), le due colonne devono quadrare, patrimonio netto in crescita = solidita'.
+
+Esercizi Modulo 2:
+2.1 - Classifica 10 voci tra attivo immobilizzato/circolante/PN/debiti LT/debiti BT. Punteggio 0-10.
+2.2 - Trova l'errore in uno SP che non quadra (differenza 35.000). Corretto se identifica la differenza e propone spiegazione.
+2.3 - Inserisce patrimonio netto 3 anni. Calcola variazione e tendenza (verde/ambra/rosso).
+2.4 - Struttura attivo: immobilizzazioni 380k su 500k totale. E' equilibrata per manifattura? (no, circolante solo 24%, benchmark ~40%)
+2.5 - Inserisce debiti totali e PN. Calcola D/E. Scala: <2 ok, 2-4 attenzione, >4 hard cap bancario.
+
+## MODULO 3 - IL CONTO ECONOMICO
+
+Concetti: sequenza ricavi->EBITDA->EBIT->utile, costi fissi vs variabili, EBITDA = cassa operativa, la banca guarda EBITDA non utile.
+
+Esercizi Modulo 3:
+3.1 - Ordina 8 voci CE in sequenza corretta. 0-8.
+3.2 - Calcola EBITDA (180k), EBIT (145k), utile (105k) da dati forniti. Correggi ogni passaggio.
+3.3 - Classifica 10 voci fissi/variabili. Calcola punto di pareggio con costi fissi 45k e margine 38% (risposta: 118.421).
+3.4 - Tre CE consecutivi con personale che cresce piu' del fatturato. Identifica problema e soluzione.
+3.5 - Inserisce propri dati. Calcola EBITDA margin e confronta con benchmark: manifattura 8-15%, servizi 15-25%, commercio 3-8%, ristorazione 10-18%, costruzioni 6-12%.
+
+## MODULO 4 - IL PREZZO CHE UCCIDE IN SILENZIO
+
+Concetti: full costing (costi diretti + quota fissi), margine di contribuzione = prezzo - costi variabili, punto di pareggio = costi fissi / margine%, cliente con sconto puo' fare piu' danni.
+
+Esercizi Modulo 4:
+4.1 - Classifica 10 voci in diretti/indiretti. 0-10.
+4.2 - Calcola costo pieno: materiali 15, manodopera 8, fissi 40k/2000unita'=20. Costo pieno 43. Venduto a 45 - margine solo 4.4%, non sostenibile.
+4.3 - Inserisce prezzo, costi variabili, fissi mensili. Calcola margine contribuzione e punto pareggio.
+4.4 - Ordine 500 unita' con sconto 25%. Prezzo 80->60, costi var 45, margine 15 vs 35. Dipende da capacita' produttiva disponibile.
+4.5 - Inserisce propri fissi e margine contribuzione. Calcola punto pareggio e margine di sicurezza.
+
+## MODULO 5 - GLI INDICI CHE CONTANO
+
+Indici e soglie:
+- Current Ratio (Circolante/PassivoBT): >1.5 verde, 1-1.5 ambra, <1 hard cap max C
+- Quick Ratio ((Circolante-Rimanenze)/PassivoBT): >1 verde, 0.7-1 ambra
+- D/E (DebitiTotali/PN): <2 ok, 2-4 attenzione, >4 hard cap max D
+- Debt Ratio (DebitiTotali/TotAttivo): <0.6 verde, 0.6-0.75 ambra
+- ROE (Utile/PN): >8% verde, 3-8% ambra
+- DSCR ((EBITDA-Imposte)/ServiziDebito): >1.25 verde, 1-1.25 ambra, <1 hard cap max D
+
+NOTA METODOLOGICA DA COMUNICARE: "Le formule usate sono versioni semplificate per l'analisi bancaria PMI. Il ROI usa Totale Attivo al denominatore invece del CIN; il DSCR usa EBITDA come proxy del FCO. Per analisi peritali usare formule complete."
+
+Esercizi Modulo 5:
+5.1 - Calcola Current Ratio e Quick Ratio da dati forniti. Posiziona e spiega.
+5.2 - D/E 800k/250k = 3.2. Proponi 2 azioni concrete con numeri per portarlo sotto 2.
+5.3 - DSCR: (180k-35k)/(90k+24k) = 1.27. Se EBITDA cala 15%: (153k-35k)/114k = 1.035, zona critica.
+5.4 - Da bilancio completo, calcola tutti gli indici e assegna rating A-E con motivazione.
+5.5 - Inserisce propri dati. Calcola DSCR. Dice esattamente quanto deve migliorare EBITDA o ridurre debito per 1.25.
+
+## MODULO 6 - PARLARE LA LINGUA DELLA BANCA
+
+Concetti: banca guarda in ordine DSCR->D/E->tendenza 3anni->liquidita'->redditivita', presentazione efficace ha 5 elementi, dichiarare i punti deboli aumenta credibilita'.
+
+Esercizi Modulo 6:
+6.1 - Analizza bilancio come analista credito: 5 punti in ordine priorita'.
+6.2 - Tre bilanci consecutivi: tendenza in miglioramento o peggioramento?
+6.3 - Costruisci presentazione bancaria per mutuo 200k: 5 elementi.
+6.4 - Simula colloquio con 4 domande difficili. Valuta qualita' risposta.
+6.5 - Profilo bancario completo: rating, 3 forze, 3 debolezze, 3 azioni prioritarie.
+
+## MODULO 7 - COSA FARE ADESSO
+
+Concetti: 6 numeri mensili (fatturato, costi var, personale, saldo banca, incassi 30gg, pagamenti 30gg), 3 leve rating (EBITDA, debito, PN), piano 90 giorni.
+
+Esercizi Modulo 7:
+7.1 - Inserisce 6 numeri mensili. Calcola EBITDA, cash flow, punto pareggio. Semaforo + azione.
+7.2 - Profilo critico: DSCR 0.95, D/E 3.8, CR 1.1. Quale leva prima? (DSCR perche' hard cap)
+7.3 - Proiezione 12 mesi con 2 azioni concrete con numeri.
+7.4 - Piano d'azione 90 giorni: posizione attuale + indice critico + azione specifica + metrica controllo.
+7.5 - Valutazione finale 10 domande su 100. Badge: 70-84 Imprenditore Consapevole, 85-94 Imprenditore Preparato, 95-100 Imprenditore Bancabile.
+
+## GESTIONE SITUAZIONI SPECIALI
+
+Se abbandona e ritorna: "Eri al [modulo X, esercizio Y]. Ripartiamo da li' o vuoi rivedere qualcosa del modulo precedente?"
+Se scoraggiato: Non consolarlo. "I numeri che hai inserito mostrano [problema]. Non e' una novita' negativa - e' informazione. Meglio scoprirlo adesso."
+Se chiede di Cruscotto PMI: "Cruscotto PMI e' lo strumento per applicare quello che impari qui ai tuoi dati reali. Trovi tutto su controllogestione.ceo."
+Se chiede tempi miglioramento rating: "Dipende dall'indice critico. DSCR: almeno 12 mesi. D/E: puo' bastare un rimborso anticipato se hai liquidita'. Non migliora da sola."
+
+TONO - DA EVITARE: "Ottima domanda!", "Stai facendo progressi fantastici!", "Perfetto!"
+TONO - DA USARE: "Corretto." / "Non e' corretto." / "Hai capito il concetto." / "L'errore sta qui: [spiegazione]."
+
+Fine system prompt.`
+
+// ── NAVIGAZIONE ──
+function mostraOnboarding() {
+  document.getElementById('landing').style.display = 'none'
+  document.getElementById('onboarding').style.display = 'flex'
+}
+
+function step1Next() {
+  const nome = document.getElementById('inp-nome').value.trim()
+  if (!nome) { document.getElementById('inp-nome').focus(); return }
+  utente.nome = nome
+  showStep(2)
+}
+
+function step2Next() {
+  const settore = document.getElementById('inp-settore').value
+  if (!settore) return
+  utente.settore = settore
+  showStep(3)
+}
+
+function step3Next() {
+  if (utente.hasCruscotto === null) return
+  avviaCorso()
+}
+
+function showStep(n) {
+  document.querySelectorAll('.onb-step').forEach((s, i) => {
+    s.classList.toggle('active', i === n - 1)
+  })
+  document.querySelectorAll('.onb-dot').forEach((d, i) => {
+    d.classList.toggle('active', i <= n - 1)
+  })
+}
+
+function selezionaToggle(val) {
+  utente.hasCruscotto = (val === 'si')
+  document.getElementById('tog-si').classList.toggle('selected', val === 'si')
+  document.getElementById('tog-no').classList.toggle('selected', val === 'no')
+}
+
+function avviaCorso() {
+  document.getElementById('onboarding').style.display = 'none'
+  document.getElementById('corso').style.display = 'flex'
+  // Messaggio di avvio
+  const msgInizio = `Ciao ${utente.nome}. Inizia il corso "Ora Lo Sai Anche Tu" per un imprenditore del settore ${utente.settore}. ${utente.hasCruscotto ? 'L\'utente ha un abbonamento attivo a Cruscotto PMI, quindi puoi usare i suoi dati reali per gli esercizi.' : 'L\'utente non ha Cruscotto PMI, usa dati ipotetici coerenti con il settore.'} Presentati brevemente e inizia il Modulo 1.`
+  sendToAgent(msgInizio, true)
+}
+
+// ── CHAT ──
+function renderMarkdown(text) {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/^- (.+)/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>')
+    .replace(/\n{2,}/g, '<br><br>')
+    .replace(/\n/g, '<br>')
+}
+
+function addMessage(role, content) {
+  const container = document.getElementById('chat-messages')
+  const div = document.createElement('div')
+  div.className = 'msg ' + (role === 'assistant' ? 'marco' : 'user')
+  const avatarText = role === 'assistant' ? 'MF' : utente.nome.charAt(0).toUpperCase()
+  div.innerHTML = `
+    <div class="msg-avatar">${avatarText}</div>
+    <div class="msg-bubble">${role === 'assistant' ? renderMarkdown(content) : content}</div>
+  `
+  container.appendChild(div)
+  container.scrollTop = container.scrollHeight
+}
+
+function showTyping() {
+  const container = document.getElementById('chat-messages')
+  const div = document.createElement('div')
+  div.className = 'typing-indicator'
+  div.id = 'typing'
+  div.innerHTML = `
+    <div class="msg-avatar" style="background:var(--navy);color:var(--gold);font-family:'DM Serif Display',serif;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">MF</div>
+    <div class="typing-dots"><span></span><span></span><span></span></div>
+  `
+  container.appendChild(div)
+  container.scrollTop = container.scrollHeight
+}
+
+function hideTyping() {
+  const t = document.getElementById('typing')
+  if (t) t.remove()
+}
+
+async function sendToAgent(userMsg, hidden) {
+  if (!hidden) {
+    messages.push({ role: 'user', content: userMsg })
+    addMessage('user', userMsg)
+  } else {
+    messages.push({ role: 'user', content: userMsg })
+  }
+
+  isLoading = true
+  document.getElementById('btn-send').disabled = true
+  showTyping()
+
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 1500,
+        system: SYSTEM_PROMPT,
+        messages: messages
+      })
+    })
+
+    const data = await res.json()
+    hideTyping()
+
+    if (data.content && data.content[0]) {
+      const reply = data.content[0].text
+      messages.push({ role: 'assistant', content: reply })
+      addMessage('assistant', reply)
+    } else {
+      addMessage('assistant', 'Si e\' verificato un errore. Riprova.')
+    }
+  } catch(e) {
+    hideTyping()
+    addMessage('assistant', 'Connessione non riuscita. Controlla la connessione e riprova.')
+  }
+
+  isLoading = false
+  document.getElementById('btn-send').disabled = false
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input')
+  const text = input.value.trim()
+  if (!text || isLoading) return
+  input.value = ''
+  input.style.height = 'auto'
+  await sendToAgent(text, false)
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault()
+    sendMessage()
+  }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto'
+  el.style.height = Math.min(el.scrollHeight, 130) + 'px'
+}
+</script>
+</body>
+</html>
