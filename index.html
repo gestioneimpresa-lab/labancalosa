@@ -1045,22 +1045,23 @@ function addMessage(role, content) {
   }
 }
 
+const audioQueue = []
+let audioPlaying = false
+
 async function fetchTTS(text, msgId) {
   const barEl = document.getElementById('audio-bar-' + msgId)
-  const truncated = text.length > 800 ? text.substring(0, 797) + '...' : text
 
   try {
     const res = await fetch(TTS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: truncated })
+      body: JSON.stringify({ text: text })
     })
 
     if (!res.ok) throw new Error('TTS error')
 
     const blob = await res.blob()
     const url = URL.createObjectURL(blob)
-    const audio = new Audio(url)
 
     if (barEl) {
       barEl.innerHTML = `
@@ -1071,27 +1072,44 @@ async function fetchTTS(text, msgId) {
       `
     }
 
-    if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0 }
-    currentAudio = audio
-    const btn = document.getElementById('btn-' + msgId)
-    if (btn) btn.classList.add('playing')
-    audio.play().catch(() => {})
-    audio.onended = () => { if (btn) btn.classList.remove('playing') }
+    audioQueue.push({ url, msgId })
+    if (!audioPlaying) playNextInQueue()
 
   } catch(e) {
     if (barEl) barEl.remove()
   }
 }
 
-function replayAudio(msgId, url) {
-  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0 }
-  document.querySelectorAll('.btn-replay').forEach(b => b.classList.remove('playing'))
+function playNextInQueue() {
+  if (audioQueue.length === 0) { audioPlaying = false; return }
+  audioPlaying = true
+  const { url, msgId } = audioQueue.shift()
   const audio = new Audio(url)
   currentAudio = audio
   const btn = document.getElementById('btn-' + msgId)
   if (btn) btn.classList.add('playing')
   audio.play().catch(() => {})
-  audio.onended = () => { if (btn) btn.classList.remove('playing') }
+  audio.onended = () => {
+    if (btn) btn.classList.remove('playing')
+    playNextInQueue()
+  }
+}
+
+function replayAudio(msgId, url) {
+  audioQueue.length = 0
+  audioPlaying = false
+  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0 }
+  document.querySelectorAll('.btn-replay').forEach(b => b.classList.remove('playing'))
+  const audio = new Audio(url)
+  currentAudio = audio
+  audioPlaying = true
+  const btn = document.getElementById('btn-' + msgId)
+  if (btn) btn.classList.add('playing')
+  audio.play().catch(() => {})
+  audio.onended = () => {
+    if (btn) btn.classList.remove('playing')
+    audioPlaying = false
+  }
 }
 
 function showTyping() {
