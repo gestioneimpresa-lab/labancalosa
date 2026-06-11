@@ -630,17 +630,12 @@ body {
 /* ── TASTO PAUSA GLOBALE ── */
 #global-audio-bar {
   display: none;
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
   background: var(--navy);
-  border-radius: 100px;
-  padding: 10px 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  border-radius: 8px;
+  padding: 8px 16px;
   align-items: center;
   gap: 10px;
+  margin-bottom: 8px;
 }
 
 #global-audio-bar.visible {
@@ -676,21 +671,6 @@ body {
 
 <!-- ══ LANDING ══ -->
 <div id="landing">
-
-<!-- TASTO PAUSA GLOBALE -->
-<div id="global-audio-bar">
-  <span id="global-audio-label">Marco sta parlando</span>
-  <button id="btn-global-pause" onclick="toggleGlobalAudio()">
-    <svg id="icon-pause" width="14" height="14" viewBox="0 0 14 14" fill="white">
-      <rect x="2" y="1" width="4" height="12" rx="1"/>
-      <rect x="8" y="1" width="4" height="12" rx="1"/>
-    </svg>
-    <svg id="icon-play" width="14" height="14" viewBox="0 0 14 14" fill="white" style="display:none">
-      <polygon points="2,1 13,7 2,13"/>
-    </svg>
-    <span id="label-pause-btn">Pausa</span>
-  </button>
-</div>
   <div class="top-bar">
     <a class="logo-mark" href="#">
       <div class="logo-icon"><span>L</span></div>
@@ -843,7 +823,17 @@ body {
 
   <div class="chat-messages" id="chat-messages"></div>
 
-  <div class="chat-input-area">
+  <div class="chat-input-area" style="flex-direction: column; align-items: stretch;">
+    <!-- TASTO PAUSA GLOBALE -->
+    <div id="global-audio-bar">
+      <span id="global-audio-label" style="color:rgba(255,255,255,0.6);font-size:11px;font-family:'DM Sans',sans-serif;">Marco sta parlando</span>
+      <button id="btn-global-pause" onclick="toggleGlobalAudio()" style="background:none;border:none;cursor:pointer;color:white;display:flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;margin-left:auto;">
+        <svg id="icon-pause" width="12" height="12" viewBox="0 0 12 12" fill="white"><rect x="1" y="0" width="4" height="12" rx="1"/><rect x="7" y="0" width="4" height="12" rx="1"/></svg>
+        <svg id="icon-play" width="12" height="12" viewBox="0 0 12 12" fill="white" style="display:none"><polygon points="1,0 12,6 1,12"/></svg>
+        <span id="label-pause-btn">Pausa</span>
+      </button>
+    </div>
+    <div style="display:flex;gap:10px;align-items:flex-end;">
     <textarea
       class="chat-textarea"
       id="chat-input"
@@ -857,6 +847,7 @@ body {
         <path d="M15.5 9L2.5 2.5l3 6.5-3 6.5L15.5 9z" fill="white"/>
       </svg>
     </button>
+    </div>
   </div>
 </div>
 
