@@ -626,12 +626,71 @@ body {
   0%,100% { opacity: .3; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.3); }
 }
+
+/* ── TASTO PAUSA GLOBALE ── */
+#global-audio-bar {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: var(--navy);
+  border-radius: 100px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  align-items: center;
+  gap: 10px;
+}
+
+#global-audio-bar.visible {
+  display: flex;
+}
+
+#btn-global-pause {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0;
+}
+
+#btn-global-pause:hover {
+  opacity: 0.8;
+}
+
+#global-audio-label {
+  color: rgba(255,255,255,0.6);
+  font-size: 11px;
+  font-family: 'DM Sans', sans-serif;
+}
 </style>
 </head>
 <body>
 
 <!-- ══ LANDING ══ -->
 <div id="landing">
+
+<!-- TASTO PAUSA GLOBALE -->
+<div id="global-audio-bar">
+  <span id="global-audio-label">Marco sta parlando</span>
+  <button id="btn-global-pause" onclick="toggleGlobalAudio()">
+    <svg id="icon-pause" width="14" height="14" viewBox="0 0 14 14" fill="white">
+      <rect x="2" y="1" width="4" height="12" rx="1"/>
+      <rect x="8" y="1" width="4" height="12" rx="1"/>
+    </svg>
+    <svg id="icon-play" width="14" height="14" viewBox="0 0 14 14" fill="white" style="display:none">
+      <polygon points="2,1 13,7 2,13"/>
+    </svg>
+    <span id="label-pause-btn">Pausa</span>
+  </button>
+</div>
   <div class="top-bar">
     <a class="logo-mark" href="#">
       <div class="logo-icon"><span>L</span></div>
@@ -1081,17 +1140,53 @@ async function fetchTTS(text, msgId) {
 }
 
 function playNextInQueue() {
-  if (audioQueue.length === 0) { audioPlaying = false; return }
+  if (audioQueue.length === 0) {
+    audioPlaying = false
+    document.getElementById('global-audio-bar').classList.remove('visible')
+    return
+  }
   audioPlaying = true
   const { url, msgId } = audioQueue.shift()
   const audio = new Audio(url)
   currentAudio = audio
   const btn = document.getElementById('btn-' + msgId)
   if (btn) btn.classList.add('playing')
+
+  // Mostra tasto pausa globale
+  const bar = document.getElementById('global-audio-bar')
+  if (bar) bar.classList.add('visible')
+  updateGlobalPauseBtn(false)
+
   audio.play().catch(() => {})
   audio.onended = () => {
     if (btn) btn.classList.remove('playing')
     playNextInQueue()
+  }
+}
+
+function toggleGlobalAudio() {
+  if (!currentAudio) return
+  if (currentAudio.paused) {
+    currentAudio.play()
+    updateGlobalPauseBtn(false)
+  } else {
+    currentAudio.pause()
+    updateGlobalPauseBtn(true)
+  }
+}
+
+function updateGlobalPauseBtn(isPaused) {
+  const iconPause = document.getElementById('icon-pause')
+  const iconPlay = document.getElementById('icon-play')
+  const label = document.getElementById('label-pause-btn')
+  if (isPaused) {
+    if (iconPause) iconPause.style.display = 'none'
+    if (iconPlay) iconPlay.style.display = 'block'
+    if (label) label.textContent = 'Riprendi'
+  } else {
+    if (iconPause) iconPause.style.display = 'block'
+    if (iconPlay) iconPlay.style.display = 'none'
+    if (label) label.textContent = 'Pausa'
   }
 }
 
