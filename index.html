@@ -33,7 +33,6 @@ body {
   min-height: 100vh;
 }
 
-/* ── LANDING ── */
 #landing {
   min-height: 100vh;
   display: flex;
@@ -214,7 +213,53 @@ body {
   line-height: 1.4;
 }
 
-/* ── ONBOARDING ── */
+.cta-cruscotto {
+  margin-top: 32px;
+  text-align: center;
+  padding: 24px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.cta-cruscotto p {
+  font-size: 14px;
+  color: var(--text2);
+  margin-bottom: 12px;
+}
+
+.cta-cruscotto a {
+  display: inline-block;
+  background: var(--navy);
+  color: var(--white);
+  text-decoration: none;
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.cta-cruscotto a:hover {
+  background: var(--navy2);
+}
+
+.footer-link {
+  padding: 16px 24px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.footer-link a {
+  color: var(--text3);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.footer-link a:hover {
+  color: var(--navy);
+}
+
 #onboarding {
   display: none;
   min-height: 100vh;
@@ -361,7 +406,6 @@ body {
 
 .onb-dot.active { background: var(--navy); }
 
-/* ── CHAT ── */
 #corso {
   display: none;
   height: 100vh;
@@ -571,7 +615,6 @@ body {
   .top-bar { padding: 16px 20px; }
 }
 
-/* ── AUDIO / TTS ── */
 .audio-bar {
   display: flex;
   align-items: center;
@@ -627,7 +670,6 @@ body {
   50% { opacity: 1; transform: scale(1.3); }
 }
 
-/* ── TASTO PAUSA GLOBALE ── */
 #global-audio-bar {
   display: none;
   background: var(--navy);
@@ -669,7 +711,6 @@ body {
 </head>
 <body>
 
-<!-- ══ LANDING ══ -->
 <div id="landing">
   <div class="top-bar">
     <a class="logo-mark" href="#">
@@ -752,10 +793,18 @@ body {
         <div class="module-title">Cosa fare adesso</div>
       </div>
     </div>
+
+    <div class="cta-cruscotto">
+      <p>Vuoi applicare questi concetti al bilancio vero della tua azienda?</p>
+      <a href="https://landing.controllogestione.ceo">Scopri Cruscotto PMI →</a>
+    </div>
+  </div>
+
+  <div class="footer-link">
+    <a href="https://landing.controllogestione.ceo">Cruscotto PMI — l'app per il check-up del tuo bilancio →</a>
   </div>
 </div>
 
-<!-- ══ ONBOARDING ══ -->
 <div id="onboarding">
   <div class="onb-card">
     <div class="onb-progress">
@@ -764,7 +813,6 @@ body {
       <div class="onb-dot" id="dot3"></div>
     </div>
 
-    <!-- Step 1: Nome -->
     <div class="onb-step active" id="step1">
       <div class="onb-icon">👋</div>
       <h2>Come ti chiami?</h2>
@@ -774,7 +822,6 @@ body {
       <button class="btn-onb" onclick="step1Next()">Continua →</button>
     </div>
 
-    <!-- Step 2: Settore -->
     <div class="onb-step" id="step2">
       <div class="onb-icon">🏭</div>
       <h2>In che settore opera la tua azienda?</h2>
@@ -793,7 +840,6 @@ body {
       <button class="btn-onb" onclick="step2Next()">Continua →</button>
     </div>
 
-    <!-- Step 3: Cruscotto PMI -->
     <div class="onb-step" id="step3">
       <div class="onb-icon">📊</div>
       <h2>Hai Cruscotto PMI?</h2>
@@ -808,7 +854,6 @@ body {
   </div>
 </div>
 
-<!-- ══ CORSO / CHAT ══ -->
 <div id="corso">
   <div class="chat-header">
     <div class="chat-avatar">MF</div>
@@ -824,7 +869,6 @@ body {
   <div class="chat-messages" id="chat-messages"></div>
 
   <div class="chat-input-area" style="flex-direction: column; align-items: stretch;">
-    <!-- TASTO PAUSA GLOBALE -->
     <div id="global-audio-bar">
       <span id="global-audio-label" style="color:rgba(255,255,255,0.6);font-size:11px;font-family:'DM Sans',sans-serif;">Marco sta parlando</span>
       <button id="btn-global-pause" onclick="toggleGlobalAudio()" style="background:none;border:none;cursor:pointer;color:white;display:flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;margin-left:auto;">
@@ -852,16 +896,13 @@ body {
 </div>
 
 <script>
-// ── CONFIG ──
 const WORKER_URL = 'https://cruscottoai.luicrescenzo.workers.dev/corso'
 const MODEL = 'claude-sonnet-4-6'
 
-// Dati utente
 let utente = { nome: '', settore: '', hasCruscotto: null }
 let messages = []
 let isLoading = false
 
-// ── SYSTEM PROMPT ──
 const SYSTEM_PROMPT = `# SYSTEM PROMPT - MARCO FERRETTI FORMATORE
 Agente formatore interattivo per il corso "Ora Lo Sai Anche Tu"
 GestioneImpresa.pro - sezione Corsi
@@ -993,7 +1034,7 @@ Esercizi Modulo 7:
 
 Se abbandona e ritorna: "Eri al [modulo X, esercizio Y]. Ripartiamo da li' o vuoi rivedere qualcosa del modulo precedente?"
 Se scoraggiato: Non consolarlo. "I numeri che hai inserito mostrano [problema]. Non e' una novita' negativa - e' informazione. Meglio scoprirlo adesso."
-Se chiede di Cruscotto PMI: "Cruscotto PMI e' lo strumento per applicare quello che impari qui ai tuoi dati reali. Trovi tutto su controllogestione.ceo."
+Se chiede di Cruscotto PMI: "Cruscotto PMI e' lo strumento per applicare quello che impari qui ai tuoi dati reali. Lo trovi su landing.controllogestione.ceo."
 Se chiede tempi miglioramento rating: "Dipende dall'indice critico. DSCR: almeno 12 mesi. D/E: puo' bastare un rimborso anticipato se hai liquidita'. Non migliora da sola."
 
 TONO - DA EVITARE: "Ottima domanda!", "Stai facendo progressi fantastici!", "Perfetto!"
@@ -1001,7 +1042,6 @@ TONO - DA USARE: "Corretto." / "Non e' corretto." / "Hai capito il concetto." / 
 
 Fine system prompt.`
 
-// ── NAVIGAZIONE ──
 function mostraOnboarding() {
   document.getElementById('landing').style.display = 'none'
   document.getElementById('onboarding').style.display = 'flex'
@@ -1044,12 +1084,10 @@ function selezionaToggle(val) {
 function avviaCorso() {
   document.getElementById('onboarding').style.display = 'none'
   document.getElementById('corso').style.display = 'flex'
-  // Messaggio di avvio
   const msgInizio = `Ciao ${utente.nome}. Inizia il corso "Ora Lo Sai Anche Tu" per un imprenditore del settore ${utente.settore}. ${utente.hasCruscotto ? 'L\'utente ha un abbonamento attivo a Cruscotto PMI, quindi puoi usare i suoi dati reali per gli esercizi.' : 'L\'utente non ha Cruscotto PMI, usa dati ipotetici coerenti con il settore.'} Presentati brevemente e inizia il Modulo 1.`
   sendToAgent(msgInizio, true)
 }
 
-// ── CHAT ──
 function renderMarkdown(text) {
   return text
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -1143,7 +1181,6 @@ function playNextInQueue() {
   const btn = document.getElementById('btn-' + msgId)
   if (btn) btn.classList.add('playing')
 
-  // Mostra tasto pausa globale
   const bar = document.getElementById('global-audio-bar')
   if (bar) bar.classList.add('visible')
   updateGlobalPauseBtn(false)
