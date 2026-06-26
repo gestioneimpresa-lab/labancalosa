@@ -537,6 +537,66 @@ body {
   align-self: flex-start;
 }
 
+.typing-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 20px;
+  animation: typingFadeIn .4s ease;
+}
+
+.typing-overlay-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.typing-overlay-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--gold);
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(26,58,92,0.18);
+}
+
+.typing-overlay-text {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--navy);
+  letter-spacing: .01em;
+  transition: opacity .25s ease;
+  text-align: center;
+}
+
+.typing-overlay-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.typing-overlay-dots span {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: bounce 1.2s infinite;
+}
+
+.typing-overlay-dots span:nth-child(2) { animation-delay: .2s; }
+.typing-overlay-dots span:nth-child(3) { animation-delay: .4s; }
+
+@keyframes typingFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .typing-dots {
   background: var(--white);
   border: 1px solid var(--border);
@@ -1240,29 +1300,35 @@ let typingMessageTimers = []
 function showTyping() {
   const container = document.getElementById('chat-messages')
   const div = document.createElement('div')
-  div.className = 'typing-indicator'
+  div.className = 'typing-overlay'
   div.id = 'typing'
   div.innerHTML = `
-    <div class="msg-avatar" style="background:var(--navy);color:var(--gold);font-family:'DM Serif Display',serif;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">MF</div>
-    <div class="typing-dots">
-      <span></span><span></span><span></span>
-      <span id="typing-label" style="margin-left:8px;font-size:12px;color:var(--text3);font-family:'DM Sans',sans-serif;white-space:nowrap;">Marco sta pensando…</span>
+    <div class="typing-overlay-inner">
+      <div class="typing-overlay-icon">MF</div>
+      <div class="typing-overlay-text" id="typing-label">Marco sta pensando</div>
+      <div class="typing-overlay-dots"><span></span><span></span><span></span></div>
     </div>
   `
   container.appendChild(div)
   container.scrollTop = container.scrollHeight
 
   const messaggi = [
-    'Marco sta pensando…',
-    'Sta rileggendo i tuoi numeri…',
-    'Sta preparando la risposta…',
-    'Quasi pronto…'
+    'Marco sta pensando',
+    'Sta rileggendo i tuoi numeri',
+    'Sta preparando la risposta',
+    'Quasi pronto'
   ]
   let idx = 0
   typingMessageTimers.push(setInterval(() => {
     idx = (idx + 1) % messaggi.length
     const label = document.getElementById('typing-label')
-    if (label) label.textContent = messaggi[idx]
+    if (label) {
+      label.style.opacity = '0'
+      setTimeout(() => {
+        label.textContent = messaggi[idx]
+        label.style.opacity = '1'
+      }, 250)
+    }
   }, 2800))
 }
 
