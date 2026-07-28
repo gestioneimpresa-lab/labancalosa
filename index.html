@@ -1091,7 +1091,7 @@ const WORKER_URL = 'https://cruscottoai.luicrescenzo.workers.dev/corso'
 const REGISTRA_LEAD_URL = 'https://cruscottoai.luicrescenzo.workers.dev/registra-lead-corso'
 const TTS_URL = 'https://cruscottoai.luicrescenzo.workers.dev/tts'
 const MODEL = 'claude-sonnet-4-6'
-const TOTALE_ESERCIZI = 35
+const TOTALE_ESERCIZI = 34  // 1.1 raccoglie i dati di bilancio, non viene valutato
 const ORDINE_ESERCIZI = [
   '1.1', '1.2', '1.3', '1.4', '1.5',
   '2.1', '2.2', '2.3', '2.4', '2.5',
@@ -2009,7 +2009,8 @@ async function registraLeadCorso() {
 // AVVIO CORSO / CHAT
 // ══════════════════════════════════════════════
 function trovaProssimoEsercizio() {
-  return ORDINE_ESERCIZI.find(function(id) { return !punteggiEsercizi[id] }) || null
+  return ORDINE_ESERCIZI.filter(function(id) { return id !== '1.1' })
+                        .find(function(id) { return !punteggiEsercizi[id] }) || null
 }
 
 function avviaCorso(ripresa) {
