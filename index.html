@@ -1091,7 +1091,7 @@ const WORKER_URL = 'https://cruscottoai.luicrescenzo.workers.dev/corso'
 const REGISTRA_LEAD_URL = 'https://cruscottoai.luicrescenzo.workers.dev/registra-lead-corso'
 const TTS_URL = 'https://cruscottoai.luicrescenzo.workers.dev/tts'
 const MODEL = 'claude-sonnet-4-6'
-const TOTALE_ESERCIZI = 34  // 1.1 raccoglie i dati di bilancio, non viene valutato
+const TOTALE_ESERCIZI = 35
 const ORDINE_ESERCIZI = [
   '1.1', '1.2', '1.3', '1.4', '1.5',
   '2.1', '2.2', '2.3', '2.4', '2.5',
@@ -2009,13 +2009,10 @@ async function registraLeadCorso() {
 // AVVIO CORSO / CHAT
 // ══════════════════════════════════════════════
 function trovaProssimoEsercizio() {
-  return ORDINE_ESERCIZI.filter(function(id) { return id !== '1.1' })
-                        .find(function(id) { return !punteggiEsercizi[id] }) || null
+  return ORDINE_ESERCIZI.find(function(id) { return !punteggiEsercizi[id] }) || null
 }
 
 function avviaCorso(ripresa) {
-  document.getElementById('landing').style.display = 'none'
-  window.scrollTo(0, 0)
   document.getElementById('corso').style.display = 'flex'
   if (ripresa) {
     const completati = Object.keys(punteggiEsercizi).length
@@ -2076,8 +2073,6 @@ function calcolaGiudizioFinale() {
 }
 
 function mostraSchermataFinale(giudizio) {
-  document.getElementById('landing').style.display = 'none'
-  window.scrollTo(0, 0)
   document.getElementById('corso').style.display = 'none'
   document.getElementById('finale').style.display = 'flex'
   document.getElementById('finale-livello').textContent = giudizio.livello + ' · ' + giudizio.percentuale + '%'
@@ -2098,118 +2093,12 @@ function addMessage(role, content) {
       '</div></div>'
     container.appendChild(div)
     container.scrollTop = container.scrollHeight
-    fetchTTS(pulisciPerTTS(content), msgId)
+    fetchTTS(content, msgId)
   } else {
     div.innerHTML = '<div class="msg-avatar">' + avatarText + '</div><div class="msg-bubble">' + content + '</div>'
     container.appendChild(div)
     container.scrollTop = container.scrollHeight
   }
-}
-
-function numeroInLettere(n) {
-  const u = ['zero','uno','due','tre','quattro','cinque','sei','sette','otto','nove']
-  const d = ['','dieci','venti','trenta','quaranta','cinquanta','sessanta','settanta','ottanta','novanta']
-  const t = ['dieci','undici','dodici','tredici','quattordici','quindici','sedici','diciassette','diciotto','diciannove']
-  n = Math.floor(Math.abs(n))
-  if (n < 10) return u[n]
-  if (n < 20) return t[n - 10]
-  if (n < 100) {
-    const dec = Math.floor(n / 10), uni = n % 10
-    let s = d[dec]
-    if (uni === 1 || uni === 8) s = s.slice(0, -1)
-    return s + (uni ? u[uni] : '')
-  }
-  if (n < 1000) {
-    const cen = Math.floor(n / 100), r = n % 100
-    return (cen > 1 ? u[cen] : '') + 'cento' + (r ? numeroInLettere(r) : '')
-  }
-  if (n < 1000000) {
-    const mig = Math.floor(n / 1000), r = n % 1000
-    return (mig === 1 ? 'mille' : numeroInLettere(mig) + 'mila') + (r ? numeroInLettere(r) : '')
-  }
-  const mil = Math.floor(n / 1000000), r = n % 1000000
-  return (mil === 1 ? 'un milione' : numeroInLettere(mil) + ' milioni') +
-         (r >= 1000 ? ' e ' + numeroInLettere(Math.round(r / 1000) * 1000) : '')
-}
-
-function pulisciPerTTS(t) {
-  let s = t
-
-  // 1. Rimuove il markdown
-  s = s.replace(/\*\*(.+?)\*\*/g, '$1')
-  s = s.replace(/\*(.+?)\*/g, '$1')
-  s = s.replace(/`(.+?)`/g, '$1')
-  s = s.replace(/^#{1,6}\s+/gm, '')
-  s = s.replace(/^[-*]\s+/gm, '')
-  s = s.replace(/\[SCORE:[^\]]*\]/g, '')
-  s = s.replace(/[═─│┌┐└┘]/g, '')
-
-  // 2. Sigle e simboli
-  s = s.replace(/\bD\/E\b/g, 'debiti su patrimonio netto')
-  s = s.replace(/\bROS\b/g, 'ros')
-  s = s.replace(/\bROE\b/g, 'roe')
-  s = s.replace(/\bROI\b/g, 'roi')
-  s = s.replace(/\bDSCR\b/g, 'di esse ci erre')
-  s = s.replace(/\bEBITDA\b/g, 'ebitda')
-  s = s.replace(/\bMOL\b/g, 'emme o elle')
-  s = s.replace(/\bIVA\b/g, 'iva')
-  s = s.replace(/\bP\.IVA\b/gi, 'partita iva')
-  s = s.replace(/\bS\.r\.l\.?/gi, 'esse erre elle')
-  s = s.replace(/\bS\.n\.c\.?/gi, 'esse enne ci')
-  s = s.replace(/\bS\.p\.A\.?/gi, 'esse pi a')
-
-  // 3. Percentuali con decimali: 12,39% -> dodici virgola trentanove per cento
-  s = s.replace(/(\d{1,3}(?:\.\d{3})*),(\d+)\s*%/g, function(m, i, dec) {
-    return numeroInLettere(parseInt(i.replace(/\./g, ''), 10)) +
-           ' virgola ' + numeroInLettere(parseInt(dec, 10)) + ' per cento'
-  })
-  // percentuali intere
-  s = s.replace(/(\d{1,3}(?:\.\d{3})*)\s*%/g, function(m, i) {
-    return numeroInLettere(parseInt(i.replace(/\./g, ''), 10)) + ' per cento'
-  })
-
-  // 4. Multipli: 1,2x -> uno virgola due volte
-  s = s.replace(/(\d+),(\d+)\s*x\b/gi, function(m, i, dec) {
-    return numeroInLettere(parseInt(i, 10)) + ' virgola ' + numeroInLettere(parseInt(dec, 10)) + ' volte'
-  })
-  s = s.replace(/(\d+)\s*x\b/gi, function(m, i) {
-    return numeroInLettere(parseInt(i, 10)) + ' volte'
-  })
-
-  // 5. Importi in euro con decimali
-  s = s.replace(/(?:€\s*)?(\d{1,3}(?:\.\d{3})+|\d+),(\d{2})\s*(?:€|EUR|euro)/gi, function(m, i, c) {
-    const intero = parseInt(i.replace(/\./g, ''), 10)
-    return numeroInLettere(intero) + ' euro e ' + numeroInLettere(parseInt(c, 10))
-  })
-  // importi interi con simbolo
-  s = s.replace(/€\s*(\d{1,3}(?:\.\d{3})*|\d+)/g, function(m, i) {
-    return numeroInLettere(parseInt(i.replace(/\./g, ''), 10)) + ' euro'
-  })
-  s = s.replace(/(\d{1,3}(?:\.\d{3})*|\d+)\s*(?:€|EUR|euro)\b/gi, function(m, i) {
-    return numeroInLettere(parseInt(i.replace(/\./g, ''), 10)) + ' euro'
-  })
-
-  // 6. Numeri con separatore migliaia: 1.234.567 -> in lettere
-  s = s.replace(/\b\d{1,3}(?:\.\d{3})+\b/g, function(m) {
-    return numeroInLettere(parseInt(m.replace(/\./g, ''), 10))
-  })
-
-  // 7. Decimali rimasti: 3,25 -> tre virgola venticinque
-  s = s.replace(/\b(\d+),(\d+)\b/g, function(m, i, dec) {
-    return numeroInLettere(parseInt(i, 10)) + ' virgola ' + numeroInLettere(parseInt(dec, 10))
-  })
-
-  // 8. Anni a 4 cifre restano leggibili come numero
-  s = s.replace(/\b(19|20)(\d{2})\b/g, function(m) {
-    return numeroInLettere(parseInt(m, 10))
-  })
-
-  // 9. Simboli euro rimasti non catturati dalle regole precedenti
-  s = s.replace(/(\d)\s*€/g, '$1 euro')
-  s = s.replace(/€\s*(\d)/g, 'euro $1')
-  s = s.replace(/€/g, ' euro ')
-
-  return s.replace(/\s{2,}/g, ' ').trim()
 }
 
 async function fetchTTS(text, msgId) {
@@ -2327,38 +2216,6 @@ function hideTyping() {
   if (t) t.remove()
 }
 
-const MAX_SCAMBI = 10
-
-function storicoTroncato() {
-  if (messages.length <= MAX_SCAMBI * 2) return messages
-  let tagliato = messages.slice(-(MAX_SCAMBI * 2))
-  // l'API richiede che il primo messaggio sia di ruolo 'user'
-  while (tagliato.length && tagliato[0].role !== 'user') {
-    tagliato = tagliato.slice(1)
-  }
-  return tagliato
-}
-
-function contestoUtente() {
-  const fatti = Object.keys(punteggiEsercizi).length
-  return '\n\n## DATI DELL\'UTENTE IN CORSO (sempre validi)\n' +
-    '- Nome: ' + (utente.nome || 'non fornito') + '\n' +
-    '- Tipo: ' + (utente.tipo || 'non fornito') + '\n' +
-    '- Settore: ' + (utente.settore || 'non fornito') + '\n' +
-    '- Ha Cruscotto PMI: ' + (utente.hasCruscotto ? 'si' : 'no') + '\n' +
-    '- Esercizi gia completati: ' + fatti + ' su ' + TOTALE_ESERCIZI + '\n' +
-    '- Esercizi valutati finora: ' + (Object.keys(punteggiEsercizi).join(', ') || 'nessuno') + '\n\n' +
-    'Questi dati sono sempre disponibili: non chiederli mai di nuovo ' +
-    'e non dire mai di non ricordarli.\n\n' +
-    '## REGOLA 10 - NON USCIRE MAI DAL PERSONAGGIO\n' +
-    'Non menzionare mai di essere un\'intelligenza artificiale, un modello ' +
-    'o un assistente. Non parlare mai di memoria, sessioni, cronologia, ' +
-    'contesto, piattaforma, app o problemi tecnici. Non rimandare mai ' +
-    'l\'utente a un supporto tecnico. Se un dato non ce l\'hai, chiedilo ' +
-    'con naturalezza senza spiegare perche.'
-
-}
-
 async function sendToAgent(userMsg, hidden) {
   messages.push({ role: 'user', content: userMsg })
   if (!hidden) addMessage('user', userMsg)
@@ -2371,7 +2228,7 @@ async function sendToAgent(userMsg, hidden) {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: MODEL, max_tokens: 1500, system: SYSTEM_PROMPT + contestoUtente(), messages: storicoTroncato() })
+      body: JSON.stringify({ model: MODEL, max_tokens: 1500, system: SYSTEM_PROMPT, messages: messages })
     })
     const data = await res.json()
     hideTyping()
