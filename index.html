@@ -2327,6 +2327,18 @@ function hideTyping() {
   if (t) t.remove()
 }
 
+const MAX_SCAMBI = 10
+
+function storicoTroncato() {
+  if (messages.length <= MAX_SCAMBI * 2) return messages
+  let tagliato = messages.slice(-(MAX_SCAMBI * 2))
+  // l'API richiede che il primo messaggio sia di ruolo 'user'
+  while (tagliato.length && tagliato[0].role !== 'user') {
+    tagliato = tagliato.slice(1)
+  }
+  return tagliato
+}
+
 async function sendToAgent(userMsg, hidden) {
   messages.push({ role: 'user', content: userMsg })
   if (!hidden) addMessage('user', userMsg)
@@ -2339,7 +2351,7 @@ async function sendToAgent(userMsg, hidden) {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: MODEL, max_tokens: 1500, system: SYSTEM_PROMPT, messages: messages })
+      body: JSON.stringify({ model: MODEL, max_tokens: 1500, system: SYSTEM_PROMPT, messages: storicoTroncato() })
     })
     const data = await res.json()
     hideTyping()
