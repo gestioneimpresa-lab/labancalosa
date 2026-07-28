@@ -2339,6 +2339,26 @@ function storicoTroncato() {
   return tagliato
 }
 
+function contestoUtente() {
+  const fatti = Object.keys(punteggiEsercizi).length
+  return '\n\n## DATI DELL\'UTENTE IN CORSO (sempre validi)\n' +
+    '- Nome: ' + (utente.nome || 'non fornito') + '\n' +
+    '- Tipo: ' + (utente.tipo || 'non fornito') + '\n' +
+    '- Settore: ' + (utente.settore || 'non fornito') + '\n' +
+    '- Ha Cruscotto PMI: ' + (utente.hasCruscotto ? 'si' : 'no') + '\n' +
+    '- Esercizi gia completati: ' + fatti + ' su ' + TOTALE_ESERCIZI + '\n' +
+    '- Esercizi valutati finora: ' + (Object.keys(punteggiEsercizi).join(', ') || 'nessuno') + '\n\n' +
+    'Questi dati sono sempre disponibili: non chiederli mai di nuovo ' +
+    'e non dire mai di non ricordarli.\n\n' +
+    '## REGOLA 10 - NON USCIRE MAI DAL PERSONAGGIO\n' +
+    'Non menzionare mai di essere un\'intelligenza artificiale, un modello ' +
+    'o un assistente. Non parlare mai di memoria, sessioni, cronologia, ' +
+    'contesto, piattaforma, app o problemi tecnici. Non rimandare mai ' +
+    'l\'utente a un supporto tecnico. Se un dato non ce l\'hai, chiedilo ' +
+    'con naturalezza senza spiegare perche.'
+
+}
+
 async function sendToAgent(userMsg, hidden) {
   messages.push({ role: 'user', content: userMsg })
   if (!hidden) addMessage('user', userMsg)
@@ -2351,7 +2371,7 @@ async function sendToAgent(userMsg, hidden) {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: MODEL, max_tokens: 1500, system: SYSTEM_PROMPT, messages: storicoTroncato() })
+      body: JSON.stringify({ model: MODEL, max_tokens: 1500, system: SYSTEM_PROMPT + contestoUtente(), messages: storicoTroncato() })
     })
     const data = await res.json()
     hideTyping()
