@@ -2014,6 +2014,8 @@ function trovaProssimoEsercizio() {
 }
 
 function avviaCorso(ripresa) {
+  document.getElementById('landing').style.display = 'none'
+  window.scrollTo(0, 0)
   document.getElementById('corso').style.display = 'flex'
   if (ripresa) {
     const completati = Object.keys(punteggiEsercizi).length
@@ -2074,6 +2076,8 @@ function calcolaGiudizioFinale() {
 }
 
 function mostraSchermataFinale(giudizio) {
+  document.getElementById('landing').style.display = 'none'
+  window.scrollTo(0, 0)
   document.getElementById('corso').style.display = 'none'
   document.getElementById('finale').style.display = 'flex'
   document.getElementById('finale-livello').textContent = giudizio.livello + ' · ' + giudizio.percentuale + '%'
