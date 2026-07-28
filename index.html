@@ -2204,6 +2204,11 @@ function pulisciPerTTS(t) {
     return numeroInLettere(parseInt(m, 10))
   })
 
+  // 9. Simboli euro rimasti non catturati dalle regole precedenti
+  s = s.replace(/(\d)\s*€/g, '$1 euro')
+  s = s.replace(/€\s*(\d)/g, 'euro $1')
+  s = s.replace(/€/g, ' euro ')
+
   return s.replace(/\s{2,}/g, ' ').trim()
 }
 
