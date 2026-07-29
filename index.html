@@ -1273,12 +1273,12 @@ Conosci la materia dall'interno, non dai libri. Parli come un imprenditore che h
 
 [MAPPA:etichetta1|etichetta2|...:1|0|1|...] — solo esercizio 1.1
 [SEMAFORO:etichetta:rosso|ambra|verde:valore:soglia] — 1.2, 3.5, 5.1, 7.1
-[RATING:lettera:forza:criticita] — 1.3, 5.4, 6.5
+[RATING:lettera:forza1, forza2, ...:criticita1, criticita2, ...] — 1.3, 5.4, 6.5 (una o più voci separate da virgola)
 [BENCHMARK:etichetta:tuoValore:minSettore:maxSettore] — 1.4, 3.5
 [CLASSIFICA:voce1:giusto|sbagliato:voce2:giusto|sbagliato:...] — 2.1, 3.1, 3.3, 4.1
 [CASCATA:etichetta1:valore1:etichetta2:valore2:...] — 3.2, 4.2, 4.3 (ultima coppia = risultato)
 [TREND:anno1:valore1:anno2:valore2:anno3:valore3] — 2.3, 3.4, 6.2
-[SCALA:etichetta:valore:min:max:sogliaAttenzione:sogliaSolido] — 2.5, 5.2, 5.3, 5.5
+[SCALA:etichetta:valore:min:max:sogliaAttenzione:sogliaSolido:su|giu] — 2.5, 5.2, 5.3, 5.5 (ultimo campo opzionale: "giu" se un valore più basso è migliore, es. D/E, Debt Ratio; default "su")
 
 REGOLA FONDAMENTALE: quando emetti un tag di scheda, NON ripetere nel testo i numeri che la scheda già mostra. Il testo prima del tag introduce il concetto, il testo dopo commenta il significato — mai i numeri.
 
@@ -1338,6 +1338,8 @@ Fai 8 domande sui numeri dell'imprenditore:
 - "Hai mai presentato un bilancio in banca con gli indici già calcolati?"
 Non ci sono risposte giuste o sbagliate. Al termine costruisci una mappa delle lacune: "Su 8 domande hai risposto con certezza a X. Le lacune principali sono su [elenco]. Le affronteremo nel corso."
 
+Chiudi con: [MAPPA:Fatturato|DSO|Pareggio|DSCR|D/E|Current Ratio|EBITDA|Bilancio con indici:1|0|...] (1 = risposta data con certezza, 0 = incerta/non sapeva, una per ciascuna delle 8 domande).
+
 *Esercizio 1.2 — Fatturato o cassa?*
 **Narrazione prima dell'esercizio:**
 "Settembre 2021. Il mio commercialista mi dice che stiamo fatturando bene — +18% sull'anno precedente. Io ero contento. Due mesi dopo non riuscivo a pagare i fornitori.
@@ -1352,6 +1354,8 @@ Mostra la differenza in euro e in percentuale.
 Valutazione: differenza sotto 10% = verde, 10-25% = ambra, oltre 25% = rosso.
 Spiega cosa significa il colore e cosa fare.
 
+Chiudi con: [SEMAFORO:Scarto cassa:colore:valore%:soglia]
+
 *Esercizio 1.3 — Cosa sa la banca di te?*
 **Narrazione prima dell'esercizio:**
 "Quando entri in banca a chiedere un finanziamento, l'analista ha già aperto il tuo file prima che tu ti sieda. Ha il bilancio depositato, i movimenti di conto corrente, le segnalazioni in Centrale Rischi. In trenta secondi sa più cose sulla tua azienda di quante ne sappia tu.
@@ -1365,6 +1369,8 @@ Genera un profilo bancario sintetico con rating indicativo A-E.
 Spiega 2 punti di forza e 2 punti critici nel profilo.
 Nota: "Questo è un profilo indicativo. Nel Modulo 5 vedremo come calcolarlo in modo preciso."
 
+Chiudi con: [RATING:lettera:forza:criticita] (una sola forza e una sola criticità in questo esercizio).
+
 *Esercizio 1.4 — Il tuo bilancio in 3 numeri*
 **Narrazione prima dell'esercizio:**
 "C'è un test che uso con gli imprenditori che incontro. Gli chiedo tre numeri: ricavi, utile netto, debiti totali. Tre numeri. Chi li sa rispondere senza guardare nulla ha già una marcia in più. Chi non li sa è in buona compagnia — ma deve cambiare qualcosa.
@@ -1375,6 +1381,8 @@ Chiedi: ricavi totali, utile netto, debiti totali.
 Calcola: margine netto % (utile/ricavi) e rapporto debiti/ricavi.
 Confronta con i benchmark del settore dichiarato.
 Spiega cosa significano quei numeri in linguaggio semplice.
+
+Chiudi con: [BENCHMARK:Margine netto:tuoValore%:minSettore%:maxSettore%]
 
 *Esercizio 1.5 — Prima e dopo*
 **Narrazione prima dell'esercizio:**
@@ -1420,6 +1428,8 @@ Presenta 10 voci: "crediti verso clienti", "mutuo bancario a lungo termine", "ma
 L'imprenditore le classifica in: attivo immobilizzato / attivo circolante / patrimonio netto / debiti a lungo / debiti a breve.
 Punteggio 0-10. Spiega ogni errore.
 
+Chiudi con: [CLASSIFICA:voce1:giusto|sbagliato:voce2:giusto|sbagliato:...] (una coppia per ciascuna delle 10 voci).
+
 *Esercizio 2.2 — Lo Stato Patrimoniale quadra?*
 **Narrazione prima dell'esercizio:**
 "Un commercialista mi ha raccontato di un cliente che aveva il bilancio depositato in CCIAA con un errore di 35.000 euro da tre anni. Nessuno se n'era accorto — né il cliente, né il consulente fiscale. L'errore è saltato fuori solo quando una banca ha fatto una due diligence seria.
@@ -1433,6 +1443,8 @@ Chiedi: "Questo SP quadra? Se no, dove sta l'errore e di quanto?"
 Risposta: non quadra, differenza 35.000€.
 Valutazione: corretto se identifica la differenza di 35.000 e propone almeno una spiegazione logica.
 
+Chiudi con: [SEMAFORO:Squadratura SP:rosso:35.000 €:deve essere zero] (sempre rosso quando non quadra — è un errore, non una scala).
+
 *Esercizio 2.3 — Leggi il tuo patrimonio netto*
 **Narrazione prima dell'esercizio:**
 "Il patrimonio netto è il termometro dell'azienda nel lungo periodo. Se cresce ogni anno, l'azienda accumula valore — anche se qualche anno è andato male. Se scende, l'azienda sta consumando quello che aveva costruito.
@@ -1444,6 +1456,8 @@ Calcola variazione anno su anno in euro e in percentuale.
 Valutazione tendenza: crescita costante = verde, stabile = ambra, in calo = rosso.
 Spiega cosa significa la tendenza per l'accesso al credito.
 
+Chiudi con: [TREND:anno1:valorePN1:anno2:valorePN2:anno3:valorePN3]
+
 *Esercizio 2.4 — Struttura dell'attivo*
 **Narrazione prima dell'esercizio:**
 "Immagina di avere 500.000 euro. Ne metti 380.000 in un capannone e macchinari che non puoi vendere in fretta. Ne tieni 120.000 per tutto il resto — pagare fornitori, stipendi, imprevisti.
@@ -1453,6 +1467,8 @@ Ti sembra equilibrato? A me no. Eppure è la struttura che trovo in molte PMI ma
 Presenta un bilancio con attivo totale 500.000€ di cui immobilizzazioni 380.000€ e circolante 120.000€.
 Chiedi: "Questa struttura è equilibrata per un'azienda manifatturiera? Cosa dice sulla liquidità?"
 Risposta attesa: circolante solo 24% del totale attivo è basso per il manifatturiero (benchmark ~40%). Segnala possibile tensione di liquidità.
+
+Chiudi con: [BENCHMARK:Circolante % attivo:tuoValore%:minBenchmark%:maxBenchmark%] (es. benchmark manifatturiero ~40%, come nell'esercizio).
 
 *Esercizio 2.5 — Il rapporto debiti/patrimonio*
 **Narrazione prima dell'esercizio:**
@@ -1464,6 +1480,8 @@ Chiedi debiti totali e patrimonio netto (propri o ipotetici).
 Calcola D/E.
 Posiziona nella scala: sotto 2 = equilibrato, 2-4 = attenzione, sopra 4 = hard cap bancario.
 Suggerisci le due leve per migliorarlo (reinvestire utili / ridurre debiti).
+
+Chiudi con: [SCALA:D/E:valore:0:6:2:4:giu] (indice "più basso è meglio": sotto 2 verde, 2-4 ambra, sopra 4 rosso).
 
 ---
 
@@ -1496,6 +1514,8 @@ Presenta 8 voci in ordine casuale: utile netto, ricavi di vendita, oneri finanzi
 L'imprenditore le ordina nella sequenza corretta del CE.
 Punteggio 0-8.
 
+Chiudi con: [CLASSIFICA:voce1:giusto|sbagliato:...] (una coppia per ciascuna delle 8 voci; qui "giusto/sbagliato" indica la posizione nella sequenza, non la categoria).
+
 *Esercizio 3.2 — Calcola l'EBITDA passo per passo*
 **Narrazione prima dell'esercizio:**
 "EBITDA. Earnings Before Interest, Taxes, Depreciation and Amortization. Suona complicato. Non lo è.
@@ -1511,6 +1531,8 @@ L'imprenditore calcola EBITDA, EBIT e utile netto.
 EBITDA corretto: 180.000. EBIT: 145.000. Utile netto: 105.000.
 Correggi ogni passaggio e spiega gli errori.
 
+Chiudi con: [CASCATA:Ricavi:800.000:Costo merci:-320.000:Personale:-180.000:Affitti:-48.000:Servizi:-72.000:EBITDA:180.000]
+
 *Esercizio 3.3 — Fissi o variabili?*
 **Narrazione prima dell'esercizio:**
 "Quando il fatturato scende del 20%, cosa succede ai tuoi costi? Scendono anche loro del 20%? No. I costi variabili sì. I costi fissi restano lì — affitto, leasing, stipendi fissi, rate del mutuo. Non si muovono. E diventano il peso che affossa le aziende nelle crisi.
@@ -1524,6 +1546,8 @@ L'imprenditore classifica ognuna.
 Poi calcola: con costi fissi mensili 45.000€ e margine di contribuzione 38%, qual è il punto di pareggio mensile?
 Risposta: 45.000 / 0,38 = 118.421€.
 
+Chiudi con: [CLASSIFICA:voce1:giusto|sbagliato:...] (10 voci).
+
 *Esercizio 3.4 — Dove scompare il margine?*
 **Narrazione prima dell'esercizio:**
 "Questo è il pattern che vedo più spesso nelle aziende che hanno problemi. Non una crisi improvvisa. Un deterioramento lento, tre anni, che nessuno ha letto mentre accadeva.
@@ -1536,6 +1560,8 @@ Anno 2: Ricavi 650k, Personale 182k (28%), EBITDA 78k (12%)
 Anno 3: Ricavi 680k, Personale 218k (32%), EBITDA 55k (8%)
 Chiedi: "Qual è il problema e cosa faresti?"
 Risposta attesa: il costo del personale cresce più velocemente del fatturato. L'EBITDA sta collassando.
+
+Chiudi con: [TREND:anno1:ebitda%1:anno2:ebitda%2:anno3:ebitda%3]
 
 *Esercizio 3.5 — Il tuo EBITDA*
 **Narrazione prima dell'esercizio:**
@@ -1552,6 +1578,8 @@ Confronta con benchmark settore:
 - Ristorazione: 10-18%
 - Costruzioni: 6-12%
 Posiziona nella scala: sopra benchmark = verde, in linea = ambra, sotto = rosso.
+
+Chiudi con: [SEMAFORO:EBITDA margin:colore:valore%:benchmark settore]
 
 ---
 
@@ -1589,6 +1617,8 @@ Presenta 10 voci per un'azienda manifatturiera.
 L'imprenditore classifica ogni voce.
 Punteggio 0-10 con spiegazione per ogni errore.
 
+Chiudi con: [CLASSIFICA:voce1:giusto|sbagliato:...] (10 voci).
+
 *Esercizio 4.2 — Calcola il costo pieno*
 **Narrazione prima dell'esercizio:**
 "Torniamo all'imprenditore dei 45€. Come aveva calcolato quel prezzo? Aveva guardato i concorrenti, aveva tolto qualcosa per essere competitivo, e aveva venduto. Senza mai calcolare quanto costava davvero produrre quell'articolo.
@@ -1600,6 +1630,8 @@ Chiedi all'imprenditore di fare il calcolo. Correggi se sbaglia.
 Poi chiedi: "Se stai vendendo questo prodotto a 45€, stai guadagnando davvero?"
 Risposta: margine lordo solo 2€/unità (4,4%). Non è sostenibile.
 
+Chiudi con: [CASCATA:Materiali:15:Manodopera diretta:8:Quota costi fissi:20:Costo pieno:43]
+
 *Esercizio 4.3 — Margine di contribuzione e punto di pareggio*
 **Narrazione prima dell'esercizio:**
 "Il punto di pareggio è il numero che ogni imprenditore dovrebbe conoscere a memoria. È il fatturato minimo sotto il quale sei in perdita. Sopra sei in utile.
@@ -1608,6 +1640,8 @@ Sembra banale. Non lo è — perché cambia ogni volta che cambiano i costi fiss
 
 Chiedi: prezzo di vendita unitario, costi variabili diretti per unità, costi fissi mensili.
 Calcola: margine di contribuzione unitario, margine %, punto di pareggio in unità e in fatturato.
+
+Chiudi con: [CASCATA:Prezzo vendita:valore:Costi variabili:-valore:Margine di contribuzione:valore]
 
 *Esercizio 4.4 — Il cliente grande con lo sconto*
 **Narrazione prima dell'esercizio:**
@@ -1630,6 +1664,8 @@ Calcola il punto di pareggio mensile e annuale.
 Confronta con il fatturato attuale.
 Calcola il margine di sicurezza in euro e in percentuale.
 Spiega cosa succede se il fatturato scende del 10%, 20%, 30%.
+
+Chiudi con: [CASCATA:Costi fissi mensili:valore:Margine di contribuzione %:valore:Punto di pareggio:valore]
 
 ---
 
@@ -1670,6 +1706,8 @@ Chiedi: attivo circolante, rimanenze, passivo a breve.
 Calcola Current Ratio e Quick Ratio.
 Posiziona nella scala e spiega cosa fare.
 
+Chiudi con: [SEMAFORO:Current Ratio:colore:valore:soglia 1,0-1,5]
+
 *Esercizio 5.2 — Il D/E Ratio*
 **Narrazione prima dell'esercizio:**
 "D/E 3,2. Zona attenzione. Non ancora il limite — ma abbastanza vicino da preoccupare un analista del credito.
@@ -1681,6 +1719,8 @@ Cosa gli diresti di fare?"
 Scenario: debiti totali 800.000€, patrimonio netto 250.000€. D/E = 3,2.
 Chiedi: "Proponi due azioni concrete con numeri per portare il D/E sotto 2 entro 18 mesi."
 Valutazione: corretto se propone reinvestimento utili e/o riduzione debiti con numeri. Non accettare risposte generiche.
+
+Chiudi con: [SCALA:D/E:valore:0:6:2:4:giu]
 
 *Esercizio 5.3 — Calcola il DSCR*
 **Narrazione prima dell'esercizio:**
@@ -1695,6 +1735,8 @@ DSCR = 1,27. Zona sicura.
 Poi chiedi: "Se l'EBITDA scende del 15%, cosa succede?"
 DSCR nuovo: 1,035. Zona critica.
 
+Chiudi con: [SCALA:DSCR:valore:0:2:1:1,25]
+
 *Esercizio 5.4 — Rating sintetico*
 **Narrazione prima dell'esercizio:**
 "Adesso mettiamo insieme tutto quello che hai imparato. Ti do un bilancio completo. Tu calcoli i 6 indici e assegni un rating A-E con motivazione — come farebbe un analista del credito.
@@ -1705,6 +1747,8 @@ Presenta un bilancio completo semplificato con tutti i dati necessari.
 L'imprenditore calcola i 6 indici e assegna un rating A-E con motivazione.
 Confronta con il rating del sistema. Spiega le differenze.
 
+Chiudi con: [RATING:lettera:forza:criticita]
+
 *Esercizio 5.5 — Il tuo DSCR reale*
 **Narrazione prima dell'esercizio:**
 "Questo è il momento della verità. Calcoliamo il tuo DSCR — quello reale, con i tuoi numeri.
@@ -1714,6 +1758,8 @@ Qualunque numero venga fuori, non è un giudizio. È il punto di partenza. E se 
 Chiedi EBITDA annuo, imposte annue, totale rate annue.
 Calcola DSCR.
 Se sotto 1,25: calcola esattamente quanto deve migliorare EBITDA o ridurre il servizio del debito.
+
+Chiudi con: [SCALA:DSCR:valore:0:2:1:1,25]
 
 ---
 
@@ -1755,6 +1801,8 @@ Fornisci tre bilanci consecutivi semplificati.
 L'imprenditore identifica la tendenza di ogni indice principale.
 Punteggio con spiegazione.
 
+Chiudi con: [TREND:anno1:valore1:anno2:valore2:anno3:valore3] (indice scelto in base al bilancio presentato — tipicamente EBITDA o DSCR).
+
 *Esercizio 6.3 — Prepara la presentazione*
 **Narrazione prima dell'esercizio:**
 "Hai bisogno di 200.000€ per comprare un macchinario che raddoppia la tua capacità produttiva. Entri in banca. Cosa porti con te?
@@ -1781,6 +1829,8 @@ Non accettare risposte vaghe. Chiedi sempre: "Puoi supportarlo con un numero?"
 
 Chiedi tutti i dati reali o ipotetici.
 Genera profilo completo: rating, 3 punti di forza, 3 punti di debolezza, 3 azioni prioritarie.
+
+Chiudi con: [RATING:lettera:forza1, forza2, forza3:criticità1, criticità2, criticità3]
 
 ---
 
@@ -1811,6 +1861,8 @@ Dammi i sei numeri di questo mese. O usiamo dati ipotetici se preferisci iniziar
 Chiedi i 6 numeri del mese corrente o ipotetici.
 Calcola EBITDA mensile, cash flow 30 giorni, punto di pareggio.
 Semaforo verde/ambra/rosso con azione prioritaria.
+
+Chiudi con: [SEMAFORO:etichetta:colore:valore:azione prioritaria] (etichetta e valore dipendono da quale dei 6 numeri risulta più critico quel mese).
 
 *Esercizio 7.2 — Identifica la leva giusta*
 **Narrazione prima dell'esercizio:**
@@ -2208,6 +2260,7 @@ function estraiScore(text) {
 }
 
 function parseListaPipe(s) { return s.split('|').map(function(x) { return x.trim() }) }
+function parseListaVirgola(s) { return s.split(',').map(function(x) { return x.trim() }) }
 
 function costruisciSparkline(valori) {
   const max = Math.max.apply(null, valori), min = Math.min.apply(null, valori)
@@ -2263,8 +2316,8 @@ function costruisciScheda(text) {
     const lettere = ['A', 'B', 'C', 'D', 'E']
     const idx = lettere.indexOf(mRat[1])
     const scale = lettere.map(function(l, i) { return '<i' + (i === idx ? ' class="hit"' : '') + '></i>' }).join('')
-    const forzaLi = parseListaPipe(mRat[2]).map(function(f) { return '<li>' + f + '</li>' }).join('')
-    const critLi = parseListaPipe(mRat[3]).map(function(c) { return '<li>' + c + '</li>' }).join('')
+    const forzaLi = parseListaVirgola(mRat[2]).map(function(f) { return '<li>' + f + '</li>' }).join('')
+    const critLi = parseListaVirgola(mRat[3]).map(function(c) { return '<li>' + c + '</li>' }).join('')
     html = '<div class="card"><div class="card-top"><span class="lbl">Profilo rating</span></div><div class="card-body"><div class="rt">' +
       '<div class="rt-letter"><div class="L">' + mRat[1] + '</div><div class="scale">' + scale + '</div><div class="cap">A · B · C · D · E</div></div>' +
       '<div class="rt-cols"><div class="rt-col up"><h4>Regge</h4><ul>' + forzaLi + '</ul></div>' +
@@ -2328,11 +2381,14 @@ function costruisciScheda(text) {
     return { text: text.replace(mTre[0], '').trim(), html: html }
   }
 
-  const mSca = text.match(/\[SCALA:([^:]+):([^:]+):([^:]+):([^:]+):([^:]+):([^\]]+)\]/)
+  const mSca = text.match(/\[SCALA:([^:]+):([^:]+):([^:]+):([^:]+):([^:]+):([^:\]]+)(?::(su|giu))?\]/)
   if (mSca) {
     const valore = parseFloat(mSca[2].replace(',', '.')), min = parseFloat(mSca[3].replace(',', '.')), max = parseFloat(mSca[4].replace(',', '.'))
     const sogliaAttenzione = parseFloat(mSca[5].replace(',', '.')), sogliaSolido = parseFloat(mSca[6].replace(',', '.'))
-    const zona = valore < sogliaAttenzione ? 'rosso' : (valore < sogliaSolido ? 'ambra' : 'verde')
+    const direzione = mSca[7] || 'su'
+    const zona = direzione === 'giu'
+      ? (valore < sogliaAttenzione ? 'verde' : (valore < sogliaSolido ? 'ambra' : 'rosso'))
+      : (valore < sogliaAttenzione ? 'rosso' : (valore < sogliaSolido ? 'ambra' : 'verde'))
     const pct = Math.max(0, Math.min(100, ((valore - min) / (max - min)) * 100))
     html = '<div class="card"><div class="card-top"><span class="lbl">' + mSca[1] + '</span></div><div class="card-body">' +
       '<div class="sc-val ' + zona + '">' + mSca[2] + '</div>' +
