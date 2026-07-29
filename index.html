@@ -25,6 +25,7 @@
   --radius: 16px;
   --radius-sm: 10px;
   --red: #C0392B;
+  --amber: #D68910;
 }
 
 body {
@@ -819,11 +820,111 @@ body {
   background: #000;
 }
 
+/* ══ SCHEDE VISIVE (tag SCORE-like) ══ */
+.card { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin: 14px 0; background: #fff; }
+.card-top { background: var(--navy); padding: 9px 14px; display: flex; align-items: center; gap: 9px; }
+.card-top .lbl { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .13em; text-transform: uppercase; color: var(--gold); }
+.card-body { padding: 16px 14px; }
+
+/* MAPPA */
+.gap-score { display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px; }
+.gap-score .n { font-family: 'DM Serif Display', serif; font-size: 40px; line-height: 1; color: var(--navy); }
+.gap-score .d { font-size: 15px; color: var(--text3); }
+.gap-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; margin-bottom: 14px; }
+.gap-cell { aspect-ratio: 1; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; }
+.gap-cell.on { background: var(--navy); color: var(--gold); }
+.gap-cell.off { background: rgba(192,57,43,.09); border: 1px dashed rgba(192,57,43,.35); color: var(--red); }
+.gap-list { font-size: 12.5px; color: var(--text2); line-height: 1.7; }
+.gap-list .item { display: flex; gap: 8px; padding: 4px 0; border-top: 1px dotted var(--border); }
+.gap-list .item .k { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--red); min-width: 20px; padding-top: 2px; }
+
+/* SEMAFORO */
+.sig { display: flex; gap: 16px; align-items: center; }
+.sig-lamp { width: 64px; min-width: 64px; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; background: var(--navy); padding: 7px; gap: 6px; }
+.sig-lamp span { flex: 1; border-radius: 50%; aspect-ratio: 1; background: rgba(255,255,255,.09); }
+.sig-lamp span.on-r { background: var(--red); box-shadow: 0 0 14px rgba(192,57,43,.65); }
+.sig-lamp span.on-a { background: var(--amber); box-shadow: 0 0 14px rgba(214,137,16,.6); }
+.sig-lamp span.on-g { background: var(--emerald); box-shadow: 0 0 14px rgba(0,168,107,.6); }
+.sig-body { flex: 1; }
+.sig-val { font-family: 'DM Serif Display', serif; font-size: 34px; line-height: 1; color: var(--text); margin-bottom: 5px; }
+.sig-bar { height: 7px; border-radius: 4px; background: linear-gradient(90deg, var(--emerald) 0 33%, var(--amber) 33% 66%, var(--red) 66% 100%); position: relative; }
+.sig-bar i { position: absolute; top: -4px; width: 3px; height: 15px; background: var(--navy); border-radius: 2px; }
+.sig-ticks { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text3); margin-top: 5px; }
+
+/* RATING */
+.rt { display: flex; gap: 18px; }
+.rt-letter { width: 82px; min-width: 82px; text-align: center; }
+.rt-letter .L { font-family: 'DM Serif Display', serif; font-size: 62px; line-height: .9; color: var(--red); }
+.rt-letter .scale { display: flex; gap: 2px; margin-top: 9px; justify-content: center; }
+.rt-letter .scale i { width: 12px; height: 4px; border-radius: 2px; background: var(--border); }
+.rt-letter .scale i.hit { background: var(--red); }
+.rt-letter .cap { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; color: var(--text3); margin-top: 7px; text-transform: uppercase; }
+.rt-cols { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.rt-col h4 { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 7px; padding-bottom: 5px; border-bottom: 1px solid var(--border); }
+.rt-col.up h4 { color: var(--emerald); }
+.rt-col.down h4 { color: var(--red); }
+.rt-col li { list-style: none; font-size: 12.5px; color: var(--text2); line-height: 1.45; padding: 5px 0 5px 13px; position: relative; }
+.rt-col li::before { content: ''; position: absolute; left: 0; top: 11px; width: 5px; height: 5px; border-radius: 50%; }
+.rt-col.up li::before { background: var(--emerald); }
+.rt-col.down li::before { background: var(--red); }
+
+/* TREND */
+.tr { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tr th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); font-weight: 500; padding: 0 8px 8px; text-align: right; border-bottom: 1px solid var(--border); }
+.tr th:first-child { text-align: left; }
+.tr td { padding: 9px 8px; text-align: right; border-bottom: 1px dotted var(--border); font-variant-numeric: tabular-nums; }
+.tr td:first-child { text-align: left; color: var(--text2); font-size: 12.5px; }
+.tr tr.key td:first-child { color: var(--navy); font-weight: 600; }
+.tr .down { color: var(--red); font-weight: 600; }
+.spark { margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--border); }
+.spark-lbl { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; }
+.spark svg { width: 100%; height: 56px; display: block; }
+
+/* BENCHMARK */
+.bm-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+.bm-head .n { font-family: 'DM Serif Display', serif; font-size: 34px; line-height: 1; color: var(--navy); }
+.bm-head .cap { font-size: 12.5px; color: var(--text2); line-height: 1.5; margin-left: auto; text-align: right; max-width: 220px; }
+.bm-track { position: relative; height: 10px; border-radius: 5px; background: var(--border); margin: 18px 0 6px; }
+.bm-zone { position: absolute; top: 0; height: 100%; border-radius: 5px; background: rgba(0,168,107,.25); }
+.bm-you { position: absolute; top: -5px; width: 4px; height: 20px; border-radius: 2px; background: var(--red); }
+.bm-you.ok { background: var(--emerald); }
+.bm-ticks { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text3); }
+
+/* CLASSIFICA */
+.cl-list { display: flex; flex-direction: column; gap: 2px; }
+.cl-item { display: flex; align-items: center; gap: 10px; padding: 9px 4px; border-top: 1px dotted var(--border); }
+.cl-item:first-child { border-top: none; }
+.cl-item .mk { width: 18px; min-width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+.cl-item.ok .mk { background: rgba(0,168,107,.14); color: var(--emerald); }
+.cl-item.no .mk { background: rgba(192,57,43,.14); color: var(--red); }
+.cl-item span.lbl { font-size: 13px; color: var(--text2); }
+
+/* CASCATA */
+.cs-list { font-size: 13px; }
+.cs-row { display: flex; justify-content: space-between; padding: 8px 2px; border-top: 1px dotted var(--border); }
+.cs-row:first-child { border-top: none; }
+.cs-row span:first-child { color: var(--text2); }
+.cs-row span:last-child { font-variant-numeric: tabular-nums; color: var(--text); }
+.cs-row.res { margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--gold); }
+.cs-row.res span { font-weight: 700; color: var(--navy); }
+
+/* SCALA */
+.sc-val { font-family: 'DM Serif Display', serif; font-size: 34px; line-height: 1; margin-bottom: 10px; }
+.sc-val.rosso { color: var(--red); } .sc-val.ambra { color: var(--amber); } .sc-val.verde { color: var(--emerald); }
+.sc-bar { height: 8px; border-radius: 4px; background: var(--border); position: relative; overflow: visible; }
+.sc-fill { height: 100%; border-radius: 4px; }
+.sc-fill.rosso { background: var(--red); } .sc-fill.ambra { background: var(--amber); } .sc-fill.verde { background: var(--emerald); }
+.sc-marker { position: absolute; top: -4px; width: 3px; height: 16px; background: var(--navy); border-radius: 2px; }
+.sc-ticks { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text3); margin-top: 6px; }
+
 @media (max-width: 600px) {
   .onb-card, .finale-card { padding: 28px 20px; }
   .hero { padding: 40px 20px 28px; }
   .modules-grid { grid-template-columns: 1fr 1fr; }
   .top-bar { padding: 16px 20px; }
+  .gap-grid { grid-template-columns: repeat(4, 1fr); }
+  .rt { flex-direction: column; }
+  .rt-cols { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -1165,6 +1266,21 @@ Conosci la materia dall'interno, non dai libri. Parli come un imprenditore che h
 8. **Rimanda al libro per gli approfondimenti teorici.** Se l'imprenditore vuole capire il perché più in profondità — le origini storiche degli indici, la teoria contabile, il quadro normativo — digli: "Per l'approfondimento teorico su questo punto ti rimando al libro. Qui nel corso lavoriamo sul come applicarlo."
 
 9. **Tracking punteggi per il sistema.** Ad ogni esercizio valutato, chiudi SEMPRE la tua risposta con una riga aggiuntiva nel formato esatto: [SCORE:id_esercizio:punteggio_ottenuto:punteggio_massimo] — esempio: [SCORE:1.1:2:3]. Questa riga è per il sistema, non va mai letta ad alta voce né commentata nel testo visibile, e va inclusa anche nella "Chiusura tipo di ogni esercizio" descritta più sotto.
+
+---
+
+9bis. **Schede visive al posto dei numeri a testo.** Quando concludi la valutazione di un esercizio, invece di descrivere il risultato con numeri nel testo, emetti UNO di questi tag (mai a voce, non annunciarlo, il sistema lo intercetta e lo rimuove prima che tu venga letto o mostrato):
+
+[MAPPA:etichetta1|etichetta2|...:1|0|1|...] — solo esercizio 1.1
+[SEMAFORO:etichetta:rosso|ambra|verde:valore:soglia] — 1.2, 3.5, 5.1, 7.1
+[RATING:lettera:forza:criticita] — 1.3, 5.4, 6.5
+[BENCHMARK:etichetta:tuoValore:minSettore:maxSettore] — 1.4, 3.5
+[CLASSIFICA:voce1:giusto|sbagliato:voce2:giusto|sbagliato:...] — 2.1, 3.1, 3.3, 4.1
+[CASCATA:etichetta1:valore1:etichetta2:valore2:...] — 3.2, 4.2, 4.3 (ultima coppia = risultato)
+[TREND:anno1:valore1:anno2:valore2:anno3:valore3] — 2.3, 3.4, 6.2
+[SCALA:etichetta:valore:min:max:sogliaAttenzione:sogliaSolido] — 2.5, 5.2, 5.3, 5.5
+
+REGOLA FONDAMENTALE: quando emetti un tag di scheda, NON ripetere nel testo i numeri che la scheda già mostra. Il testo prima del tag introduce il concetto, il testo dopo commenta il significato — mai i numeri.
 
 ---
 
@@ -2091,6 +2207,144 @@ function estraiScore(text) {
   return text.replace(match[0], '').trim()
 }
 
+function parseListaPipe(s) { return s.split('|').map(function(x) { return x.trim() }) }
+
+function costruisciSparkline(valori) {
+  const max = Math.max.apply(null, valori), min = Math.min.apply(null, valori)
+  const range = (max - min) || 1
+  const w = 300, h = 56, pad = 8
+  const pts = valori.map(function(v, i) {
+    return { x: pad + (i * (w - pad*2) / (valori.length - 1)), y: pad + (1 - (v - min) / range) * (h - pad*2) }
+  })
+  const linea = pts.map(function(p) { return p.x + ' ' + p.y }).join(' L ')
+  const cerchi = pts.map(function(p) { return '<circle cx="' + p.x + '" cy="' + p.y + '" r="3.5" fill="#C0392B"/>' }).join('')
+  return '<svg viewBox="0 0 300 56" preserveAspectRatio="none"><path d="M ' + linea + '" fill="none" stroke="#C0392B" stroke-width="2.2" stroke-linecap="round"/>' + cerchi + '</svg>'
+}
+
+// Intercetta uno degli 8 tag scheda, li rimuove dal testo e costruisce l'HTML della scheda corrispondente
+function costruisciScheda(text) {
+  let html = ''
+
+  const mMappa = text.match(/\[MAPPA:([^\]]+?):([^\]]+?)\]/)
+  if (mMappa) {
+    const etichette = parseListaPipe(mMappa[1])
+    const valori = parseListaPipe(mMappa[2]).map(function(v) { return v === '1' })
+    const corrette = valori.filter(Boolean).length
+    let celle = '', lista = ''
+    etichette.forEach(function(et, i) {
+      celle += '<div class="gap-cell ' + (valori[i] ? 'on' : 'off') + '">' + (i + 1) + '</div>'
+      if (!valori[i]) lista += '<div class="item"><span class="k">' + String(i + 1).padStart(2, '0') + '</span><span>' + et + '</span></div>'
+    })
+    html = '<div class="card"><div class="card-top"><span class="lbl">Mappa delle lacune</span></div><div class="card-body">' +
+      '<div class="gap-score"><span class="n">' + corrette + '</span><span class="d">/ ' + etichette.length + '</span></div>' +
+      '<div class="gap-grid">' + celle + '</div><div class="gap-list">' + lista + '</div></div></div>'
+    return { text: text.replace(mMappa[0], '').trim(), html: html }
+  }
+
+  const mSem = text.match(/\[SEMAFORO:([^:]+):(rosso|ambra|verde):([^:]+):([^\]]+)\]/)
+  if (mSem) {
+    const etichetta = mSem[1], colore = mSem[2]
+    const valore = parseFloat(mSem[3].replace(',', '.')), soglia = parseFloat(mSem[4].replace(',', '.'))
+    const scalaMax = Math.max(soglia * 1.6, valore * 1.2)
+    const posPct = Math.max(0, Math.min(100, (valore / scalaMax) * 100))
+    const lamp = '<span' + (colore === 'rosso' ? ' class="on-r"' : '') + '></span>' +
+      '<span' + (colore === 'ambra' ? ' class="on-a"' : '') + '></span>' +
+      '<span' + (colore === 'verde' ? ' class="on-g"' : '') + '></span>'
+    html = '<div class="card"><div class="card-top"><span class="lbl">' + etichetta + '</span></div><div class="card-body"><div class="sig">' +
+      '<div class="sig-lamp">' + lamp + '</div><div class="sig-body"><div class="sig-val">' + mSem[3] + '</div>' +
+      '<div class="sig-bar"><i style="left:' + posPct + '%"></i></div>' +
+      '<div class="sig-ticks"><span>0</span><span>' + mSem[4] + '</span><span>' + Math.round(scalaMax) + '</span></div>' +
+      '</div></div></div></div>'
+    return { text: text.replace(mSem[0], '').trim(), html: html }
+  }
+
+  const mRat = text.match(/\[RATING:([A-E]):([^:]+):([^\]]+)\]/)
+  if (mRat) {
+    const lettere = ['A', 'B', 'C', 'D', 'E']
+    const idx = lettere.indexOf(mRat[1])
+    const scale = lettere.map(function(l, i) { return '<i' + (i === idx ? ' class="hit"' : '') + '></i>' }).join('')
+    const forzaLi = parseListaPipe(mRat[2]).map(function(f) { return '<li>' + f + '</li>' }).join('')
+    const critLi = parseListaPipe(mRat[3]).map(function(c) { return '<li>' + c + '</li>' }).join('')
+    html = '<div class="card"><div class="card-top"><span class="lbl">Profilo rating</span></div><div class="card-body"><div class="rt">' +
+      '<div class="rt-letter"><div class="L">' + mRat[1] + '</div><div class="scale">' + scale + '</div><div class="cap">A · B · C · D · E</div></div>' +
+      '<div class="rt-cols"><div class="rt-col up"><h4>Regge</h4><ul>' + forzaLi + '</ul></div>' +
+      '<div class="rt-col down"><h4>Non regge</h4><ul>' + critLi + '</ul></div></div></div></div></div>'
+    return { text: text.replace(mRat[0], '').trim(), html: html }
+  }
+
+  const mBen = text.match(/\[BENCHMARK:([^:]+):([^:]+):([^:]+):([^\]]+)\]/)
+  if (mBen) {
+    const tuo = parseFloat(mBen[2].replace(',', '.')), min = parseFloat(mBen[3].replace(',', '.')), max = parseFloat(mBen[4].replace(',', '.'))
+    const scalaMax = Math.max(max * 1.6, tuo * 1.3)
+    const zoneLeft = (min / scalaMax) * 100, zoneRight = 100 - (max / scalaMax) * 100
+    const youLeft = Math.max(0, Math.min(100, (tuo / scalaMax) * 100))
+    const dentro = tuo >= min && tuo <= max
+    html = '<div class="card"><div class="card-top"><span class="lbl">Confronto benchmark</span></div><div class="card-body">' +
+      '<div class="bm-head"><span class="n">' + mBen[2] + '</span><span class="cap">settore ' + mBen[3] + '–' + mBen[4] + '</span></div>' +
+      '<div class="bm-track"><div class="bm-zone" style="left:' + zoneLeft + '%;right:' + zoneRight + '%"></div>' +
+      '<div class="bm-you' + (dentro ? ' ok' : '') + '" style="left:' + youLeft + '%"></div></div>' +
+      '<div class="bm-ticks"><span>0</span><span>' + mBen[3] + '</span><span>' + mBen[4] + '</span><span>' + Math.round(scalaMax) + '</span></div>' +
+      '</div></div>'
+    return { text: text.replace(mBen[0], '').trim(), html: html }
+  }
+
+  const mCla = text.match(/\[CLASSIFICA:([^\]]+)\]/)
+  if (mCla) {
+    const campi = mCla[1].split(':')
+    let righe = ''
+    for (let i = 0; i < campi.length - 1; i += 2) {
+      const ok = campi[i + 1].trim() === 'giusto'
+      righe += '<div class="cl-item ' + (ok ? 'ok' : 'no') + '"><span class="mk">' + (ok ? '✓' : '✕') + '</span><span class="lbl">' + campi[i].trim() + '</span></div>'
+    }
+    html = '<div class="card"><div class="card-top"><span class="lbl">Classificazione voci</span></div><div class="card-body"><div class="cl-list">' + righe + '</div></div></div>'
+    return { text: text.replace(mCla[0], '').trim(), html: html }
+  }
+
+  const mCas = text.match(/\[CASCATA:([^\]]+)\]/)
+  if (mCas) {
+    const campi = mCas[1].split(':')
+    let righe = ''
+    for (let i = 0; i < campi.length; i += 2) {
+      righe += '<div class="cs-row' + (i === campi.length - 2 ? ' res' : '') + '"><span>' + campi[i].trim() + '</span><span>' + (campi[i + 1] || '').trim() + '</span></div>'
+    }
+    html = '<div class="card"><div class="card-top"><span class="lbl">Calcolo a cascata</span></div><div class="card-body"><div class="cs-list">' + righe + '</div></div></div>'
+    return { text: text.replace(mCas[0], '').trim(), html: html }
+  }
+
+  const mTre = text.match(/\[TREND:([^\]]+)\]/)
+  if (mTre) {
+    const campi = mTre[1].split(':').map(function(s) { return s.trim() })
+    let th = '', td = ''
+    const valoriNum = []
+    for (let i = 0; i < campi.length; i += 2) {
+      th += '<th>' + campi[i] + '</th>'
+      valoriNum.push(parseFloat(campi[i + 1].replace(/\./g, '').replace(',', '.')))
+      const ultimo = i === campi.length - 2
+      td += '<td' + (ultimo && valoriNum[valoriNum.length - 1] < valoriNum[0] ? ' class="down"' : '') + '>' + campi[i + 1] + '</td>'
+    }
+    html = '<div class="card"><div class="card-top"><span class="lbl">Andamento nel tempo</span></div><div class="card-body">' +
+      '<table class="tr"><thead><tr><th></th>' + th + '</tr></thead><tbody><tr class="key"><td>Valore</td>' + td + '</tr></tbody></table>' +
+      '<div class="spark"><div class="spark-lbl">Andamento</div>' + costruisciSparkline(valoriNum) + '</div></div></div>'
+    return { text: text.replace(mTre[0], '').trim(), html: html }
+  }
+
+  const mSca = text.match(/\[SCALA:([^:]+):([^:]+):([^:]+):([^:]+):([^:]+):([^\]]+)\]/)
+  if (mSca) {
+    const valore = parseFloat(mSca[2].replace(',', '.')), min = parseFloat(mSca[3].replace(',', '.')), max = parseFloat(mSca[4].replace(',', '.'))
+    const sogliaAttenzione = parseFloat(mSca[5].replace(',', '.')), sogliaSolido = parseFloat(mSca[6].replace(',', '.'))
+    const zona = valore < sogliaAttenzione ? 'rosso' : (valore < sogliaSolido ? 'ambra' : 'verde')
+    const pct = Math.max(0, Math.min(100, ((valore - min) / (max - min)) * 100))
+    html = '<div class="card"><div class="card-top"><span class="lbl">' + mSca[1] + '</span></div><div class="card-body">' +
+      '<div class="sc-val ' + zona + '">' + mSca[2] + '</div>' +
+      '<div class="sc-bar"><div class="sc-fill ' + zona + '" style="width:' + pct + '%"></div><div class="sc-marker" style="left:' + pct + '%"></div></div>' +
+      '<div class="sc-ticks"><span>' + mSca[3] + '</span><span>' + mSca[5] + ' attenzione</span><span>' + mSca[6] + ' solido</span><span>' + mSca[4] + '</span></div>' +
+      '</div></div>'
+    return { text: text.replace(mSca[0], '').trim(), html: html }
+  }
+
+  return { text: text, html: '' }
+}
+
 function calcolaGiudizioFinale() {
   let totScore = 0
   let totMax = 0
@@ -2119,7 +2373,7 @@ function mostraSchermataFinale(giudizio) {
   document.getElementById('finale-livello').textContent = giudizio.livello + ' · ' + giudizio.percentuale + '%'
 }
 
-function addMessage(role, content) {
+function addMessage(role, content, schedaHtml) {
   const container = document.getElementById('chat-messages')
   const div = document.createElement('div')
   div.className = 'msg ' + (role === 'assistant' ? 'marco' : 'user')
@@ -2132,7 +2386,7 @@ function addMessage(role, content) {
       : '<button class="btn-replay" id="btn-' + msgId + '" onclick="chiediAudio(\'' + msgId + '\')">' +
         '<svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg> Ascolta</button>'
     div.innerHTML = '<div class="msg-avatar">' + avatarText + '</div>' +
-      '<div class="msg-bubble">' + renderMarkdown(content) +
+      '<div class="msg-bubble">' + renderMarkdown(content) + (schedaHtml || '') +
       '<div class="audio-bar" id="audio-bar-' + msgId + '">' + barIniziale + '</div></div>'
     container.appendChild(div)
     container.scrollTop = container.scrollHeight
@@ -2434,7 +2688,8 @@ async function sendToAgent(userMsg, hidden) {
       const rawReply = data.content[0].text
       messages.push({ role: 'assistant', content: rawReply })
       const cleanedReply = estraiScore(rawReply)
-      addMessage('assistant', cleanedReply)
+      const scheda = costruisciScheda(cleanedReply)
+      addMessage('assistant', scheda.text, scheda.html)
     } else {
       addMessage('assistant', 'Si e verificato un errore. Riprova.')
     }
