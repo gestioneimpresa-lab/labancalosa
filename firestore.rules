@@ -1,0 +1,73 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    match /utenti/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create: if request.auth != null
+                    && request.auth.uid == uid
+                    && request.resource.data.keys().hasAll(['email','ruolo','nome','piano','terminiAccettati'])
+                    && request.resource.data.piano == 'free';
+      allow update: if request.auth != null
+                    && request.auth.uid == uid
+                    && !request.resource.data.diff(resource.data).affectedKeys()
+                       .hasAny(['piano', 'ruolo', 'email']);
+      match /bilanci/{bilancioId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+      match /mensile/{meseId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+      match /storico/{anno}/mesi/{meseId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+    match /studi/{studioId} {
+      allow read: if request.auth != null && request.auth.uid == studioId;
+      allow create: if request.auth != null
+                    && request.auth.uid == studioId
+                    && request.resource.data.piano == 'free'
+                    && request.resource.data.emailTitolare == request.auth.token.email;
+      allow update: if request.auth != null
+                    && request.auth.uid == studioId
+                    && !request.resource.data.diff(resource.data).affectedKeys()
+                       .hasAny(['piano', 'emailTitolare']);
+      allow delete: if false;
+      match /clienti/{clienteId} {
+        allow read, write: if request.auth != null && request.auth.uid == studioId;
+        allow delete: if request.auth != null && request.auth.uid == studioId;
+        match /bilanci/{bilancioId} {
+          allow read, write: if request.auth != null && request.auth.uid == studioId;
+        }
+      }
+    }
+    match /corsoUtenti/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create: if request.auth != null && request.auth.uid == uid;
+      allow update: if request.auth != null && request.auth.uid == uid;
+      allow delete: if false;
+    }
+    match /tokens/{tokenId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.auth.uid == 'iSnrhlbo6OS2zJm9c5nenghLC8D3';
+      allow update: if request.auth != null && (
+        request.auth.uid == 'iSnrhlbo6OS2zJm9c5nenghLC8D3' ||
+        (
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['usato', 'usatoDa', 'scadeIl']) &&
+          request.resource.data.usatoDa == request.auth.uid
+        )
+      );
+      allow delete: if request.auth != null && request.auth.uid == 'iSnrhlbo6OS2zJm9c5nenghLC8D3';
+    }
+    match /leads/{leadId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /chiamate/{chiamataId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}
