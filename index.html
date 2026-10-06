@@ -376,6 +376,27 @@ body {
   font-weight: 600;
 }
 
+.onb-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 10px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--text2);
+  text-align: left;
+}
+.onb-consent input[type="checkbox"] {
+  width: 18px; height: 18px; flex: 0 0 18px; margin-top: 1px;
+  accent-color: var(--navy); cursor: pointer;
+}
+.onb-consent label { cursor: pointer; }
+.onb-consent a { color: var(--navy); font-weight: 600; }
+.onb-consent-errore {
+  margin: 0 0 12px; padding: 9px 12px; border-radius: var(--radius-sm);
+  font-size: 13px; color: var(--red); background: rgba(192,57,43,0.07); border: 1px solid rgba(192,57,43,0.25);
+}
+
 .btn-onb {
   width: 100%;
   background: var(--navy);
@@ -1106,6 +1127,16 @@ body {
         <button class="onb-toggle" id="tog-si" onclick="selezionaCruscotto('si')">Sì, ce l'ho</button>
         <button class="onb-toggle" id="tog-no" onclick="selezionaCruscotto('no')">No, non ancora</button>
       </div>
+      <!-- CONSENSI. ⚠️ TESTO LEGALE DA CONFERMARE dal titolare: le diciture sono provvisorie e brevi (non sono un testo legale). -->
+      <div class="onb-consent">
+        <input type="checkbox" id="cons-privacy">
+        <label for="cons-privacy">Ho letto l'<a href="https://controllogestione.ceo/legal#privacy" target="_blank" rel="noopener">informativa sulla privacy</a> e acconsento al trattamento dei miei dati. *</label>
+      </div>
+      <div class="onb-consent">
+        <input type="checkbox" id="cons-marketing">
+        <label for="cons-marketing">Acconsento a ricevere comunicazioni commerciali e novità su Cruscotto PMI (facoltativo).</label>
+      </div>
+      <p class="onb-consent-errore" id="cons-errore" role="alert" hidden></p>
       <button class="btn-onb" onclick="step4Next()">Continua →</button>
     </div>
 
@@ -1205,6 +1236,16 @@ const WORKER_URL = 'https://cruscottoai.luicrescenzo.workers.dev/corso'
 const REGISTRA_LEAD_URL = 'https://cruscottoai.luicrescenzo.workers.dev/registra-lead-corso'
 const TTS_URL = 'https://cruscottoai.luicrescenzo.workers.dev/tts'
 const MODEL = 'claude-sonnet-4-6'
+
+// Chiamata al Worker con il login Firebase dell'utente: manda SEMPRE l'idToken nell'intestazione Authorization.
+// (Il Worker, finché i suoi interruttori ACCESSO_CORSO / ACCESSO_TTS / ACCESSO_LEAD_CORSO sono spenti, la ignora;
+// quando sono accesi la richiede.) Il token si chiede fresco a ogni chiamata: dura 1 ora e l'SDK lo rinnova da solo.
+async function chiamaWorker(url, corpo) {
+  const headers = { 'Content-Type': 'application/json' }
+  const utenteFirebase = auth.currentUser || currentUser
+  if (utenteFirebase) headers['Authorization'] = 'Bearer ' + await utenteFirebase.getIdToken()
+  return fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(corpo) })
+}
 const TOTALE_ESERCIZI = 34  // 1.1 raccoglie i dati di bilancio, non viene valutato
 const ORDINE_ESERCIZI = [
   '1.1', '1.2', '1.3', '1.4', '1.5',
@@ -2148,12 +2189,21 @@ window.selezionaCruscotto = function(val) {
 
 window.step4Next = async function() {
   if (utente.hasCruscotto === null) return
+  const consensoPrivacy = document.getElementById('cons-privacy').checked
+  const consensoMarketing = document.getElementById('cons-marketing').checked
+  const erroreCons = document.getElementById('cons-errore')
+  if (!consensoPrivacy) {
+    erroreCons.textContent = 'Per continuare serve il consenso al trattamento dei dati (informativa sulla privacy).'
+    erroreCons.hidden = false
+    return
+  }
+  erroreCons.hidden = true
 
   salvaProgressoSuFirebase({
     nome: utente.nome, tipo: utente.tipo, settore: utente.settore,
     hasCruscotto: utente.hasCruscotto
   })
-  await registraLeadCorso()
+  await registraLeadCorso(consensoPrivacy, consensoMarketing)
 
   showOnbStep(5)
 }
@@ -2184,19 +2234,20 @@ function showOnbStep(n) {
 // ══════════════════════════════════════════════
 // REGISTRAZIONE LEAD NEL CRM ESISTENTE
 // ══════════════════════════════════════════════
-async function registraLeadCorso() {
+async function registraLeadCorso(consensoPrivacy, consensoMarketing) {
   try {
-    await fetch(REGISTRA_LEAD_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        uid: currentUser.uid,
-        email: currentUser.email,
-        nome: utente.nome,
-        tipo: utente.tipo,
-        fonte: 'corso'
-      })
+    const res = await chiamaWorker(REGISTRA_LEAD_URL, {
+      uid: currentUser.uid,
+      email: currentUser.email,
+      nome: utente.nome,
+      tipo: utente.tipo,
+      fonte: 'corso',
+      interesse: 'corso',
+      haCruscotto: utente.hasCruscotto ? 'si' : 'no',   // risposta alla domanda «Hai Cruscotto PMI?»
+      consensoPrivacy: consensoPrivacy === true,
+      consensoMarketing: consensoMarketing === true
     })
+    if (!res.ok) console.warn('Registrazione lead CRM non riuscita: HTTP', res.status)
   } catch (e) {
     console.warn('Errore registrazione lead CRM:', e)
     // non bloccante: il corso prosegue comunque
@@ -2577,11 +2628,7 @@ window.chiediAudio = function(msgId) {
 async function fetchTTS(text, msgId, riproduci) {
   const barEl = document.getElementById('audio-bar-' + msgId)
   try {
-    const res = await fetch(TTS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: text })
-    })
+    const res = await chiamaWorker(TTS_URL, { text: text })
     if (!res.ok) throw new Error('TTS error')
     const blob = await res.blob()
     const url = URL.createObjectURL(blob)
@@ -2732,11 +2779,7 @@ async function sendToAgent(userMsg, hidden) {
   showTyping()
 
   try {
-    const res = await fetch(WORKER_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: MODEL, max_tokens: 1500, system: SYSTEM_PROMPT + contestoUtente(), messages: storicoTroncato() })
-    })
+    const res = await chiamaWorker(WORKER_URL, { model: MODEL, max_tokens: 1500, system: SYSTEM_PROMPT + contestoUtente(), messages: storicoTroncato() })
     const data = await res.json()
     hideTyping()
 
